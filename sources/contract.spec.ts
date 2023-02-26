@@ -163,8 +163,9 @@ describe("contract", () => {
 
     console.log(fromNano( await contract.getDeployedtime()));
 
- 
+
     // Check counter
     expect(await contract.getDeployedtime()).toBeLessThan(3n);
   });
 });
+
