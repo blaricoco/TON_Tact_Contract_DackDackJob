@@ -5,35 +5,35 @@ PROGRAM{
   DECLPROC __tact_store_bool
   DECLPROC __tact_load_address
   DECLPROC __tact_store_address
-  DECLPROC __tact_address_eq
   DECLPROC __gen_read_Deploy
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_Fund_Project
   DECLPROC __gen_read_Update_Status
-  DECLPROC __gen_write_SampleTactContract
-  DECLPROC __gen_read_SampleTactContract
-  DECLPROC __gen_read_$init$SampleTactContract
-  DECLPROC $__gen_SampleTactContract_init
-  DECLPROC __gen_load_SampleTactContract
-  DECLPROC __gen_store_SampleTactContract
+  DECLPROC __gen_write_JobContract
+  DECLPROC __gen_read_JobContract
+  DECLPROC __gen_read_$init$JobContract
+  DECLPROC $__gen_JobContract_init
+  DECLPROC __gen_load_JobContract
+  DECLPROC __gen_store_JobContract
   DECLPROC $send
   DECLPROC __gen_constructor_SendParameters$bounce_to_value_mode_body
   DECLPROC $reply
-  DECLPROC $__gen_SampleTactContract_fund_Project
-  DECLPROC $__gen_SampleTactContract_update_State
-  DECLPROC __gen_constructor_SendParameters$to_value_mode_bounce
-  DECLPROC $__gen_SampleTactContract_sendMessage
-  DECLPROC $__gen_SampleTactContract_counter
+  DECLPROC $__gen_JobContract_fund_Project
+  DECLPROC $__gen_JobContract_update_Status
+  DECLPROC $__gen_JobContract_counter
   104984 DECLMETHOD $__gen_get_counter
-  DECLPROC $__gen_SampleTactContract_deployedtime
-  127038 DECLMETHOD $__gen_get_deployedtime
-  DECLPROC $__gen_SampleTactContract_receive_Fund_Project
-  DECLPROC $__gen_SampleTactContract_receive_Update_Status
-  DECLPROC $__gen_SampleTactContract_receive_comment_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae
+  DECLPROC $__gen_JobContract_getDeployedTime
+  78415 DECLMETHOD $__gen_get_getDeployedTime
+  DECLPROC $__gen_JobContract_getContractStatus
+  83319 DECLMETHOD $__gen_get_getContractStatus
+  DECLPROC $__gen_JobContract_receive_Fund_Project
+  DECLPROC $__gen_JobContract_receive_Update_Status
+  DECLPROC $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6
+  DECLPROC $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629
   DECLPROC __gen_constructor_DeployOk$queryId
-  DECLPROC $__gen_SampleTactContract_receive_Deploy
-  DECLPROC __gen_router_SampleTactContract
+  DECLPROC $__gen_JobContract_receive_Deploy
+  DECLPROC __gen_router_JobContract
   DECLPROC recv_internal
   113617 DECLMETHOD supported_interfaces
   DECLPROC get_abi_ipfs
@@ -65,9 +65,6 @@ PROGRAM{
   }>
   __tact_store_address PROCINLINE:<{
     STSLICER
-  }>
-  __tact_address_eq PROCINLINE:<{
-    SDEQ
   }>
   __gen_read_Deploy PROCINLINE:<{
     32 LDU
@@ -108,7 +105,7 @@ PROGRAM{
     32 LDU
     SWAP
   }>
-  __gen_write_SampleTactContract PROCINLINE:<{
+  __gen_write_JobContract PROCINLINE:<{
     s4 s3 XCHG2
     __tact_store_address INLINECALLDICT
     32 STU
@@ -117,7 +114,7 @@ PROGRAM{
     257 PUSHINT
     STIX
   }>
-  __gen_read_SampleTactContract PROCINLINE:<{
+  __gen_read_JobContract PROCINLINE:<{
     __tact_load_address INLINECALLDICT
     SWAP
     32 LDU
@@ -126,15 +123,15 @@ PROGRAM{
     LDIX
     4 -ROLL
   }>
-  __gen_read_$init$SampleTactContract PROCINLINE:<{
+  __gen_read_$init$JobContract PROCINLINE:<{
     __tact_load_address INLINECALLDICT
   }>
-  $__gen_SampleTactContract_init PROCREF:<{
+  $__gen_JobContract_init PROCREF:<{
     0 PUSHINT
     NOW
     OVER
   }>
-  __gen_load_SampleTactContract PROCINLINE:<{
+  __gen_load_JobContract PROCINLINE:<{
     c4 PUSH
     CTOS
     LDREF
@@ -143,16 +140,16 @@ PROGRAM{
     1 LDI
     SWAP
     IF:<{
-      __gen_read_SampleTactContract INLINECALLDICT
+      __gen_read_JobContract INLINECALLDICT
       1 4 BLKDROP2
     }>ELSE<{
-      __gen_read_$init$SampleTactContract INLINECALLDICT
+      __gen_read_$init$JobContract INLINECALLDICT
       SWAP
       ENDS
-      $__gen_SampleTactContract_init INLINECALLDICT
+      $__gen_JobContract_init INLINECALLDICT
     }>
   }>
-  __gen_store_SampleTactContract PROCINLINE:<{
+  __gen_store_JobContract PROCINLINE:<{
     NEWC
     __tact_context_sys GETGLOB
     SWAP
@@ -161,7 +158,7 @@ PROGRAM{
     SWAP
     1 STI
     4 -ROLL
-    __gen_write_SampleTactContract INLINECALLDICT
+    __gen_write_JobContract INLINECALLDICT
     ENDC
     c4 POP
   }>
@@ -280,7 +277,7 @@ PROGRAM{
     __gen_constructor_SendParameters$bounce_to_value_mode_body INLINECALLDICT
     $send INLINECALLDICT
   }>
-  $__gen_SampleTactContract_fund_Project PROCREF:<{
+  $__gen_JobContract_fund_Project PROCREF:<{
     38831 PUSHINT
     s2 PUSH
     0 EQINT
@@ -289,73 +286,56 @@ PROGRAM{
     ADD
     s0 s2 XCHG
   }>
-  $__gen_SampleTactContract_update_State PROCREF:<{
+  $__gen_JobContract_update_Status PROCREF:<{
     NIP
     27002 PUSHINT
     OVER
     7 LESSINT
     THROWANYIFNOT
   }>
-  __gen_constructor_SendParameters$to_value_mode_bounce PROCINLINE:<{
-    3 -ROLL
-    PUSHNULL
-    PUSHNULL
-    PUSHNULL
-  }>
-  $__gen_SampleTactContract_sendMessage PROCREF:<{
-    DROP
-    __tact_context_get INLINECALLDICT
-    2DROP
-    4429 PUSHINT
-    s2 POP
-    s5 PUSH
-    __tact_address_eq INLINECALLDICT
-    THROWANYIFNOT
-    s3 PUSH
-    500000000 PUSHINT
-    2 PUSHINT
-    TRUE
-    __gen_constructor_SendParameters$to_value_mode_bounce INLINECALLDICT
-    $send INLINECALLDICT
-  }>
-  $__gen_SampleTactContract_counter PROCREF:<{
+  $__gen_JobContract_counter PROCREF:<{
     s2 s3 XCHG
     3 BLKDROP
   }>
   $__gen_get_counter PROC:<{
-    __gen_load_SampleTactContract INLINECALLDICT
-    $__gen_SampleTactContract_counter INLINECALLDICT
+    __gen_load_JobContract INLINECALLDICT
+    $__gen_JobContract_counter INLINECALLDICT
   }>
-  $__gen_SampleTactContract_deployedtime PROCREF:<{
+  $__gen_JobContract_getDeployedTime PROCREF:<{
     s1 s3 XCHG
     3 BLKDROP
   }>
-  $__gen_get_deployedtime PROC:<{
-    __gen_load_SampleTactContract INLINECALLDICT
-    $__gen_SampleTactContract_deployedtime INLINECALLDICT
+  $__gen_get_getDeployedTime PROC:<{
+    __gen_load_JobContract INLINECALLDICT
+    $__gen_JobContract_getDeployedTime INLINECALLDICT
   }>
-  $__gen_SampleTactContract_receive_Fund_Project PROCINLINE:<{
-    4 -ROLL
-    s4 PUSH
-    $__gen_SampleTactContract_sendMessage INLINECALLDICT
-    4 ROLL
-    $__gen_SampleTactContract_fund_Project INLINECALLDICT
+  $__gen_JobContract_getContractStatus PROCREF:<{
+    3 1 BLKDROP2
   }>
-  $__gen_SampleTactContract_receive_Update_Status PROCINLINE:<{
-    $__gen_SampleTactContract_update_State INLINECALLDICT
+  $__gen_get_getContractStatus PROC:<{
+    __gen_load_JobContract INLINECALLDICT
+    $__gen_JobContract_getContractStatus INLINECALLDICT
   }>
-  $__gen_SampleTactContract_receive_comment_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae PROCINLINE:<{
+  $__gen_JobContract_receive_Fund_Project PROCINLINE:<{
+    $__gen_JobContract_fund_Project INLINECALLDICT
+  }>
+  $__gen_JobContract_receive_Update_Status PROCINLINE:<{
+    $__gen_JobContract_update_Status INLINECALLDICT
+  }>
+  $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6 PROCINLINE:<{
     1 PUSHINT
-    $__gen_SampleTactContract_fund_Project INLINECALLDICT
+    $__gen_JobContract_fund_Project INLINECALLDICT
+  }>
+  $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629 PROCINLINE:<{
   }>
   __gen_constructor_DeployOk$queryId PROCINLINE:<{
   }>
-  $__gen_SampleTactContract_receive_Deploy PROCINLINE:<{
+  $__gen_JobContract_receive_Deploy PROCINLINE:<{
     __gen_constructor_DeployOk$queryId INLINECALLDICT
     __gen_writecell_DeployOk INLINECALLDICT
     $reply INLINECALLDICT
   }>
-  __gen_router_SampleTactContract PROCREF:<{
+  __gen_router_JobContract PROCREF:<{
     c2 SAVE
     SAMEALTSAVE
     0 PUSHINT
@@ -379,7 +359,7 @@ PROGRAM{
       NIP
       __gen_read_Fund_Project INLINECALLDICT
       NIP
-      $__gen_SampleTactContract_receive_Fund_Project INLINECALLDICT
+      $__gen_JobContract_receive_Fund_Project INLINECALLDICT
       TRUE
     }>
     OVER
@@ -389,7 +369,7 @@ PROGRAM{
       NIP
       __gen_read_Update_Status INLINECALLDICT
       NIP
-      $__gen_SampleTactContract_receive_Update_Status INLINECALLDICT
+      $__gen_JobContract_receive_Update_Status INLINECALLDICT
       TRUE
     }>
     OVER
@@ -399,17 +379,26 @@ PROGRAM{
       NIP
       __gen_read_Deploy INLINECALLDICT
       NIP
-      $__gen_SampleTactContract_receive_Deploy INLINECALLDICT
+      $__gen_JobContract_receive_Deploy INLINECALLDICT
       TRUE
     }>
     SWAP
     0 EQINT
     IF:<{
       HASHSU
-      89092981215441470209245890604563109773385607357076622359718516871332286001838 PUSHINT
+      DUP
+      100161148828257748618249675049814246283525545640541519268540313234627916385494 PUSHINT
       EQUAL
       IFJMP:<{
-        $__gen_SampleTactContract_receive_comment_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae INLINECALLDICT
+        DROP
+        $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      23048017263046027008369834563789645799413481394294825161162642027028426880553 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629 INLINECALLDICT
         TRUE
         RETALT
       }>
@@ -437,11 +426,11 @@ PROGRAM{
     s5 s5 XCHG2
     4 TUPLE
     __tact_context SETGLOB
-    __gen_load_SampleTactContract INLINECALLDICT
+    __gen_load_JobContract INLINECALLDICT
     2 4 BLKSWAP
-    __gen_router_SampleTactContract INLINECALLDICT
+    __gen_router_JobContract INLINECALLDICT
     DROP
-    __gen_store_SampleTactContract INLINECALLDICT
+    __gen_store_JobContract INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -449,7 +438,7 @@ PROGRAM{
     42980537499636128163026532310500881091 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5a41624c734e697153353552734d6a6d4272546738475a7373363363485a6e4b646d516648656e5643514741} PUSHSLICE
+    x{697066733a2f2f516d576272464e4144647036583271713759796b526e317061593675585a393941365038663856476551336b6a41} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

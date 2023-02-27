@@ -16,7 +16,16 @@ VARIABLES
 * Deposit time - Date Time (TBD)
 * Delivery time - Date Time (TBD)
 
-
+STATES
+---------
+Contract Status
+0) Unfunded
+1) Funded
+2) Delivered
+3) Accepted
+4) Cancelled
+5) Dispute
+6) Resolved
 
 CONSTRUCTOR (Creating)
 ---------

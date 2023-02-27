@@ -1,31 +1,48 @@
 import "@stdlib/deploy";
 
-message Add {
+message Fund_Project {
     amount: Int as uint32;
 }
 
+message Update_Status {
+    statusID: Int as uint32;
+} 
 
-contract SampleTactContract with Deployable {
+
+contract JobContract with Deployable {
 
     owner: Address;
     counter: Int as uint32;
-    deployed_time: Int;
+    deployed_time: Int as uint64;
+    contract_status: Int;
 
 
     init(owner: Address) {
         self.owner = owner;
         self.counter = 0;
         self.deployed_time = now();
+        self.contract_status = 0;
     }
 
-    fun add(v: Int) {
+    fun fund_Project(v: Int) {
         
-        // Check sender
-        let ctx: Context = context();
-        require(ctx.sender == self.owner, "Invalid sender");
+        // Check state - Unfunded 
+        require(self.contract_status == 0, "Incorrect State");
+        //require(now(), "Max time to deposit exceeded")
+        // Check sender - 
+        //let ctx: Context = context();
+        // require(ctx.sender == self.owner, "Invalid sender");
+        
         
         // Update counter
         self.counter = (self.counter + v);
+    }
+
+    fun update_Status(v: Int) {
+        // TODO: Check update status 
+        require(v <= 6, "Invalid status");
+
+        self.contract_status = v;
     }
 
     fun sendMessage( amount: Int) {
@@ -44,26 +61,34 @@ contract SampleTactContract with Deployable {
 
     }
 
-    receive(msg: Add) {
+    receive(msg: Fund_Project) {
 
-        self.sendMessage(msg.amount);
-        self.add(msg.amount);
-
+        //self.sendMessage(msg.amount);
+        self.fund_Project(msg.amount);
     }
 
-    receive("increment") {
-        self.add(1);
+    receive(msg: Update_Status) {
+
+        self.update_Status(msg.statusID);
     }
 
-    receive("increment100") {
-        self.add(100);
+    receive("fund") {
+        self.fund_Project(1);
+    }
+
+    receive("contractStatus"){
+        self.contract_status;
     }
 
     get fun counter(): Int {
         return self.counter;
     }
 
-    get fun deployedtime(): Int {
+    get fun getDeployedTime(): Int {
         return self.deployed_time; 
+    }
+
+    get fun getContractStatus(): Int {
+        return self.contract_status;
     }
 }

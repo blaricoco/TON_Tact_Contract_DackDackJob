@@ -355,30 +355,30 @@ function dictValueParserUpdate_Status(): DictionaryValue<Update_Status> {
     }
 }
 
- type SampleTactContract_init_args = {
-    $$type: 'SampleTactContract_init_args';
+ type JobContract_init_args = {
+    $$type: 'JobContract_init_args';
     owner: Address;
 }
 
-function initSampleTactContract_init_args(src: SampleTactContract_init_args) {
+function initJobContract_init_args(src: JobContract_init_args) {
     return (builder: Builder) => {
         let b_0 = builder;
         b_0.storeAddress(src.owner);
     };
 }
 
-async function SampleTactContract_init(owner: Address) {
-    const __code = Cell.fromBase64('te6ccgECEwEAAuIAART/APSkE/S88sgLAQIBYgIDAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UEQQCAVgMDQTK7aLt+3Ah10nCH5UwINcLH94Cklt/4CGCEEQtRG66jxwx0x8BghBELURuuvLggdMfATFVMCTbPFUD2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gIYIQlGqYtroFCQYHAT4w+EFvJFuBEU0yJccF8vQjghAdzWUAcn9VIG1tbds8CgASMYFpeiHBB/L0ArqOozHTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J2zx/4AHAAI6u+QGC8MT41yMS7f3vW3vseDO9uxYtFRG9eKkSrtDyY3r2VXKuuo6Gcds8f9sx4JEw4nAICQEm+EFvJBAjXwN/cFADgEIBbW3bPAoAGIIAl68iwADy9BOgAgH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zCwAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAAgEgDg8CV7sD7tRNDUAfhi0gABjhH6QAEB0x/TP4EBAdcAVTBsFI6H+kABAdHbPOLbPIERICV7dDHaiaGoA/DFpAADHCP0gAIDpj+mfwICA64AqmDYKR0P9IACA6O2ecW2eQERAAcbd6ME4LnYerpZXPY9CdhzrJUKNs0E4TusalpWyPlmRadeW/vixHME4ECrgDcAzscpnLB1XI5LZYcAAIECNfAwAIcPgjIQAGE18D');
-    const __system = Cell.fromBase64('te6cckECFQEAAuwAAQHAAQEFoebTAgEU/wD0pBP0vPLICwMCAWILBAIBWAcFAle7A+7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyBQGAAYTXwMCASAJCABxt3owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTgQKuANwDOxymcsHVcjktlhwAle3Qx2omhqAPwxaQAAxwj9IACA6Y/pn8CAgOuAKpg2CkdD/SAAgOjtnnFtnkBQKAAgQI18DAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFAwEyu2i7ftwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo8cMdMfAYIQRC1Ebrry4IHTHwExVTAk2zxVA9s8f+AhghAyAOCbuo6VMdMfAYIQMgDgm7ry4IHTHwEx2zx/4CGCEJRqmLa6ERAPDQK6jqMx0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8f+ABwACOrvkBgvDE+NcjEu3971t77HgzvbsWLRURvXipEq7Q8mN69lVyrrqOhnHbPH/bMeCRMOJwDhABJvhBbyQQI18Df3BQA4BCAW1t2zwSABIxgWl6IcEH8vQAGIIAl68iwADy9BOgAgE+MPhBbyRbgRFNMiXHBfL0I4IQHc1lAHJ/VSBtbW3bPBIB9shxAcoBUAcBygBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY5MfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzJczMwFwAcoA4iFusxMAMJx/AcoAASBu8tCAAcyVMXABygDiyQH7AAAIcPgjIcxgZtU=');
+async function JobContract_init(owner: Address) {
+    const __code = Cell.fromBase64('te6ccgECFgEAAx0AART/APSkE/S88sgLAQIBYgIDAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFAQCASAMDQTG7aLt+3Ah10nCH5UwINcLH94Cklt/4CGCEEQtRG66jpUx0x8BghBELURuuvLggdMfATHbPH/gIYIQMgDgm7qOlTHTHwGCEDIA4Ju68uCB0x8BMds8f+AhghCUapi2uuMCAcAACwUGBwASMYFpeiHBB/L0AUYx0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fwgBvI7Y+QEggvDdcTOE79nkKeTE7aH0QSlg5FCplPSX2XnyUN8H3b7M1rqOhzBx2zx/2zHggvAy9Lcp7rHkQYVzR8JoDKkyrbe2ux87bmkLGOmt/n12KbqTf9sx4JEw4nALASb4QW8kECNfA39wUAOAQgFtbds8CQH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zCgAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAABiCAJevIsAA8vQToAICASAODwIBSBITAle7JP7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyBQQAle4V37UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyBQRAAYTXwMABGwxAle3Qx2omhqAPwxaQAAxwj9IACA6Y/pn8CAgOuAKpg2CkdD/SAAgOjtnnFtnkBQVAHG3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHAACHD4IyEACBAjXwM=');
+    const __system = Cell.fromBase64('te6cckECGAEAAycAAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIOBAIBIAkFAgFIBwYAcbd6ME4LnYerpZXPY9CdhzrJUKNs0E4TusalpWyPlmRadeW/vixHME4ECrgDcAzscpnLB1XI5LZYcAJXt0MdqJoagD8MWkAAMcI/SAAgOmP6Z/AgIDrgCqYNgpHQ/0gAIDo7Z5xbZ5AXCAAIECNfAwIBIAwKAle4V37UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyBcLAARsMQJXuyT+1E0NQB+GLSAAGOEfpAAQHTH9M/gQEB1wBVMGwUjof6QAEB0ds84ts8gXDQAGE18DAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFw8Exu2i7ftwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gIYIQlGqYtrrjAgHAABYVERABvI7Y+QEggvDdcTOE79nkKeTE7aH0QSlg5FCplPSX2XnyUN8H3b7M1rqOhzBx2zx/2zHggvAy9Lcp7rHkQYVzR8JoDKkyrbe2ux87bmkLGOmt/n12KbqTf9sx4JEw4nAWAUYx0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fxIBJvhBbyQQI18Df3BQA4BCAW1t2zwTAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMUADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAAEjGBaXohwQfy9AAYggCXryLAAPL0E6ACAAhw+CMhqPnUQQ==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initSampleTactContract_init_args({ $$type: 'SampleTactContract_init_args', owner })(builder);
+    initJobContract_init_args({ $$type: 'JobContract_init_args', owner })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
 
-const SampleTactContract_errors: { [key: number]: { message: string } } = {
+const JobContract_errors: { [key: number]: { message: string } } = {
     2: { message: `Stack undeflow` },
     3: { message: `Stack overflow` },
     4: { message: `Integer overflow` },
@@ -407,26 +407,26 @@ const SampleTactContract_errors: { [key: number]: { message: string } } = {
     38831: { message: `Incorrect State` },
 }
 
-export class SampleTactContract implements Contract {
+export class JobContract implements Contract {
     
     static async init(owner: Address) {
-        return await SampleTactContract_init(owner);
+        return await JobContract_init(owner);
     }
     
     static async fromInit(owner: Address) {
-        const init = await SampleTactContract_init(owner);
+        const init = await JobContract_init(owner);
         const address = contractAddress(0, init);
-        return new SampleTactContract(address, init);
+        return new JobContract(address, init);
     }
     
     static fromAddress(address: Address) {
-        return new SampleTactContract(address);
+        return new JobContract(address);
     }
     
     readonly address: Address; 
     readonly init?: { code: Cell, data: Cell };
     readonly abi: ContractABI = {
-        errors: SampleTactContract_errors
+        errors: JobContract_errors
     };
     
     private constructor(address: Address, init?: { code: Cell, data: Cell }) {
@@ -434,7 +434,7 @@ export class SampleTactContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | 'increment' | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | 'fund' | 'contractStatus' | Deploy) {
         
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Fund_Project') {
@@ -443,7 +443,10 @@ export class SampleTactContract implements Contract {
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Update_Status') {
             body = beginCell().store(storeUpdate_Status(message)).endCell();
         }
-        if (message === 'increment') {
+        if (message === 'fund') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'contractStatus') {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Deploy') {
@@ -462,9 +465,16 @@ export class SampleTactContract implements Contract {
         return result;
     }
     
-    async getDeployedtime(provider: ContractProvider) {
+    async getGetDeployedTime(provider: ContractProvider) {
         let builder = new TupleBuilder();
-        let source = (await provider.get('deployedtime', builder.build())).stack;
+        let source = (await provider.get('getDeployedTime', builder.build())).stack;
+        let result = source.readBigNumber();
+        return result;
+    }
+    
+    async getGetContractStatus(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('getContractStatus', builder.build())).stack;
         let result = source.readBigNumber();
         return result;
     }
