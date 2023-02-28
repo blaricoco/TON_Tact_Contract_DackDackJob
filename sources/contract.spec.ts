@@ -24,7 +24,7 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK STATUS UNFUNDED - Project STATE FUNDED - should not allow funding", async () => {
+  it("Fund_Project - CHECK STATUS FUNDED - should not allow funding", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
     let owner = system.treasure("owner"); // Creates wallet (owner)
@@ -61,7 +61,7 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK INVALID STATUS  - Should allow funding", async () => {
+  it("Fund_Project - CHECK STATUS INVALID - Should allow funding", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
     let owner = system.treasure("owner"); // Creates wallet (owner)
