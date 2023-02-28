@@ -368,8 +368,8 @@ function initJobContract_init_args(src: JobContract_init_args) {
 }
 
 async function JobContract_init(owner: Address) {
-    const __code = Cell.fromBase64('te6ccgECFgEAAx0AART/APSkE/S88sgLAQIBYgIDAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFAQCASAMDQTG7aLt+3Ah10nCH5UwINcLH94Cklt/4CGCEEQtRG66jpUx0x8BghBELURuuvLggdMfATHbPH/gIYIQMgDgm7qOlTHTHwGCEDIA4Ju68uCB0x8BMds8f+AhghCUapi2uuMCAcAACwUGBwASMYFpeiHBB/L0AUYx0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fwgBvI7Y+QEggvDdcTOE79nkKeTE7aH0QSlg5FCplPSX2XnyUN8H3b7M1rqOhzBx2zx/2zHggvAy9Lcp7rHkQYVzR8JoDKkyrbe2ux87bmkLGOmt/n12KbqTf9sx4JEw4nALASb4QW8kECNfA39wUAOAQgFtbds8CQH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zCgAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAABiCAJevIsAA8vQToAICV71db2omhqAPwxaQAAxwj9IACA6Y/pn8CAgOuAKpg2CkdD/SAAgOjtnnFtnkFA4CASAPEAAIECNfAwIBWBESAle7Mw7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyBQVAleydDtRNDUAfhi0gABjhH6QAEB0x/TP4EBAdcAVTBsFI6H+kABAdHbPOLbPIBQTAHGy9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOAABhNfAwAIcPgjIQAEbDE=');
-    const __system = Cell.fromBase64('te6cckECGAEAAycAAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIOBAIBIAwFAgEgCAYCV7szDtRNDUAfhi0gABjhH6QAEB0x/TP4EBAdcAVTBsFI6H+kABAdHbPOLbPIFwcABGwxAgFYCgkAcbL0YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4AJXsnQ7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyAXCwAGE18DAle9XW9qJoagD8MWkAAMcI/SAAgOmP6Z/AgIDrgCqYNgpHQ/0gAIDo7Z5xbZ5BcNAAgQI18DAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFw8Exu2i7ftwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gIYIQlGqYtrrjAgHAABYVERABvI7Y+QEggvDdcTOE79nkKeTE7aH0QSlg5FCplPSX2XnyUN8H3b7M1rqOhzBx2zx/2zHggvAy9Lcp7rHkQYVzR8JoDKkyrbe2ux87bmkLGOmt/n12KbqTf9sx4JEw4nAWAUYx0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fxIBJvhBbyQQI18Df3BQA4BCAW1t2zwTAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMUADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAAEjGBaXohwQfy9AAYggCXryLAAPL0E6ACAAhw+CMhGc9Dsw==');
+    const __code = Cell.fromBase64('te6ccgECFQEAArUAART/APSkE/S88sgLAQIBYgIDAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UEwQCASALDAO8cCHXScIflTAg1wsf3gKSW3/gIYIQRC1EbrqOlTHTHwGCEEQtRG668uCB0x8BMds8f+AhghAyAOCbuo6VMdMfAYIQMgDgm7ry4IHTHwEx2zx/4AGCEJRqmLa64wIwcAUGBwAYggCXryLAAPL0E6ACABIxgWl6IcEH8vQBRNMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8nbPH8IASb4QW8kECNfA39wUAOAQgFtbds8CQH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zCgAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAAle9XW9qJoagD8MWkAAMcI/SAAgOmP6Z/AgIDrgCqYNgpHQ/0gAIDo7Z5xbZ5BMNAgEgDg8ACBAjXwMCAVgQEQJXuzMO1E0NQB+GLSAAGOEfpAAQHTH9M/gQEB1wBVMGwUjof6QAEB0ds84ts8gTFAJXsnQ7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyATEgBxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAAYTXwMACHD4IyEABGwx');
+    const __system = Cell.fromBase64('te6cckECFwEAAr8AAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIOBAIBIAwFAgEgCAYCV7szDtRNDUAfhi0gABjhH6QAEB0x/TP4EBAdcAVTBsFI6H+kABAdHbPOLbPIFgcABGwxAgFYCgkAcbL0YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4AJXsnQ7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zzi2zyAWCwAGE18DAle9XW9qJoagD8MWkAAMcI/SAAgOmP6Z/AgIDrgCqYNgpHQ/0gAIDo7Z5xbZ5BYNAAgQI18DAsLQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4R+kABAdMf0z+BAQHXAFUwbBSOh/pAAQHR2zziVRPbPDDI+EIBzH8BygBVMFBDzxbLHxLLP4EBAc8Aye1UFg8DvHAh10nCH5UwINcLH94Cklt/4CGCEEQtRG66jpUx0x8BghBELURuuvLggdMfATHbPH/gIYIQMgDgm7qOlTHTHwGCEDIA4Ju68uCB0x8BMds8f+ABghCUapi2uuMCMHAVFBABRNMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8nbPH8RASb4QW8kECNfA39wUAOAQgFtbds8EgH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zEwAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAABIxgWl6IcEH8vQAGIIAl68iwADy9BOgAgAIcPgjIZgiAtk=');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -434,7 +434,7 @@ export class JobContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | 'fund' | 'contractStatus' | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | Deploy) {
         
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Fund_Project') {
@@ -442,12 +442,6 @@ export class JobContract implements Contract {
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Update_Status') {
             body = beginCell().store(storeUpdate_Status(message)).endCell();
-        }
-        if (message === 'fund') {
-            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
-        }
-        if (message === 'contractStatus') {
-            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Deploy') {
             body = beginCell().store(storeDeploy(message)).endCell();

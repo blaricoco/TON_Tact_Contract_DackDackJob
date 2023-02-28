@@ -29,8 +29,6 @@ PROGRAM{
   127792 DECLMETHOD $__gen_get_ContractStatus
   DECLPROC $__gen_JobContract_receive_Fund_Project
   DECLPROC $__gen_JobContract_receive_Update_Status
-  DECLPROC $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6
-  DECLPROC $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629
   DECLPROC __gen_constructor_DeployOk$queryId
   DECLPROC $__gen_JobContract_receive_Deploy
   DECLPROC __gen_router_JobContract
@@ -322,12 +320,6 @@ PROGRAM{
   $__gen_JobContract_receive_Update_Status PROCINLINE:<{
     $__gen_JobContract_update_Status INLINECALLDICT
   }>
-  $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6 PROCINLINE:<{
-    1 PUSHINT
-    $__gen_JobContract_fund_Project INLINECALLDICT
-  }>
-  $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629 PROCINLINE:<{
-  }>
   __gen_constructor_DeployOk$queryId PROCINLINE:<{
   }>
   $__gen_JobContract_receive_Deploy PROCINLINE:<{
@@ -336,8 +328,6 @@ PROGRAM{
     $reply INLINECALLDICT
   }>
   __gen_router_JobContract PROCREF:<{
-    c2 SAVE
-    SAMEALTSAVE
     0 PUSHINT
     OVER
     SBITS
@@ -372,39 +362,16 @@ PROGRAM{
       $__gen_JobContract_receive_Update_Status INLINECALLDICT
       TRUE
     }>
-    OVER
+    SWAP
     2490013878 PUSHINT
     EQUAL
     IFJMP:<{
-      NIP
       __gen_read_Deploy INLINECALLDICT
       NIP
       $__gen_JobContract_receive_Deploy INLINECALLDICT
       TRUE
     }>
-    SWAP
-    0 EQINT
-    IF:<{
-      HASHSU
-      DUP
-      100161148828257748618249675049814246283525545640541519268540313234627916385494 PUSHINT
-      EQUAL
-      IFJMP:<{
-        DROP
-        $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6 INLINECALLDICT
-        TRUE
-        RETALT
-      }>
-      23048017263046027008369834563789645799413481394294825161162642027028426880553 PUSHINT
-      EQUAL
-      IFJMP:<{
-        $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629 INLINECALLDICT
-        TRUE
-        RETALT
-      }>
-    }>ELSE<{
-      DROP
-    }>
+    DROP
     FALSE
   }>
   recv_internal PROC:<{
@@ -438,7 +405,7 @@ PROGRAM{
     42980537499636128163026532310500881091 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d6146464568623337366d36344e415375714a6d374673457a4266343647335a6d675763323438786f32476b6b} PUSHSLICE
+    x{697066733a2f2f516d644671796f31504a657a516f684d7651393548645779486b585547396d524c7a324a35613843547251416d79} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

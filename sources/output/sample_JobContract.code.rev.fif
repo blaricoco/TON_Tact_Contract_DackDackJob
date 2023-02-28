@@ -53,8 +53,6 @@ SETCP0
     IFELSE
     2 4 BLKSWAP
     <{
-      c2 SAVE
-      SAMEALTSAVE
       0 PUSHINT
       s1 PUSH
       SBITS
@@ -119,11 +117,10 @@ SETCP0
         -1 PUSHINT
       }> PUSHCONT
       IFJMP
-      s1 PUSH
+      s0 s1 XCHG
       2490013878 PUSHINT
       EQUAL
       <{
-        s1 POP
         32 LDU
         s0 s1 XCHG
         2490013878 PUSHINT
@@ -280,41 +277,7 @@ SETCP0
         }> CALLREF
         -1 PUSHINT
       }> IFJMPREF
-      s0 s1 XCHG
-      0 EQINT
-      <{
-        HASHSU
-        s0 PUSH
-        100161148828257748618249675049814246283525545640541519268540313234627916385494 PUSHINT
-        EQUAL
-        <{
-          s0 POP
-          1 PUSHINT
-          <{
-            38831 PUSHINT
-            s2 PUSH
-            0 EQINT
-            THROWANYIFNOT
-            s1 s3 XCHG
-            ADD
-            s0 s2 XCHG
-          }> CALLREF
-          -1 PUSHINT
-          RETALT
-        }> PUSHCONT
-        IFJMP
-        23048017263046027008369834563789645799413481394294825161162642027028426880553 PUSHINT
-        EQUAL
-        <{
-          -1 PUSHINT
-          RETALT
-        }> PUSHCONT
-        IFJMP
-      }> PUSHCONT
-      <{
-        s0 POP
-      }> PUSHCONT
-      IFELSE
+      s0 POP
       0 PUSHINT
     }> CALLREF
     s0 POP

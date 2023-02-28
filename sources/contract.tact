@@ -72,14 +72,6 @@ contract JobContract with Deployable {
         self.update_Status(msg.statusID);
     }
 
-    receive("fund") {
-        self.fund_Project(1);
-    }
-
-    receive("contractStatus"){
-        self.contract_status;
-    }
-
     get fun Funds(): Int {
         return self.funds;
     }

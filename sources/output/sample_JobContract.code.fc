@@ -224,18 +224,6 @@ _ $__gen_get_ContractStatus() method_id(127792) {
     return (($self'owner, $self'funds, $self'deployed_time, $self'contract_status), ());
 }
 
-((slice, int, int, int), ()) $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6((slice, int, int, int) $self) impure inline {
-    var ($self'owner, $self'funds, $self'deployed_time, $self'contract_status) = $self;
-    ($self'owner, $self'funds, $self'deployed_time, $self'contract_status)~$__gen_JobContract_fund_Project(1);
-    return (($self'owner, $self'funds, $self'deployed_time, $self'contract_status), ());
-}
-
-((slice, int, int, int), ()) $__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629((slice, int, int, int) $self) impure inline {
-    var ($self'owner, $self'funds, $self'deployed_time, $self'contract_status) = $self;
-    $self'contract_status;
-    return (($self'owner, $self'funds, $self'deployed_time, $self'contract_status), ());
-}
-
 ((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
     return (queryId);
 }
@@ -281,23 +269,6 @@ _ $__gen_get_ContractStatus() method_id(127792) {
         return (self, true);
     }
     
-    ;; Text Receivers
-    if (op == 0) {
-        var text_op = slice_hash(in_msg);
-        
-        ;; Receive "fund" message
-        if (text_op == 0xdd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6) {
-            self~$__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6();
-            return (self, true);
-        }
-        
-        ;; Receive "contractStatus" message
-        if (text_op == 0x32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629) {
-            self~$__gen_JobContract_receive_comment_32f4b729eeb1e441857347c2680ca932adb7b6bb1f3b6e690b18e9adfe7d7629();
-            return (self, true);
-        }
-    }
-    
     return (self, false);
 }
 
@@ -332,7 +303,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmaFFEhb376m64NASuqJm7FsEzBf46G3ZmgWc248xo2Gkk";
+    return "ipfs://QmdFqyo1PJezQohMvQ95HdWyHkXUG9mRLz2J5a8CTrQAmy";
 }
 
 _ lazy_deployment_completed() {

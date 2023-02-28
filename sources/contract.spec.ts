@@ -16,11 +16,11 @@ describe("contract", () => {
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
     // Increment counter
-    await contract.send(owner, { value: toNano(1) }, "fund"); 
+    let currentStatus = await contract.getContractStatus();
     await system.run();
 
     // Check counter
-    expect(await contract.getFunds()).toEqual(1n);
+    expect(currentStatus).toEqual(0n);
 
   });
 
