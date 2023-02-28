@@ -13,14 +13,14 @@ describe("contract", () => {
     await system.run(); // Execute
   
     // Check counter
-    expect(await contract.getCounter()).toEqual(0n); // Deploy start state 
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
     // Increment counter
     await contract.send(owner, { value: toNano(1) }, "fund"); 
     await system.run();
 
     // Check counter
-    expect(await contract.getCounter()).toEqual(1n);
+    expect(await contract.getFunds()).toEqual(1n);
 
   });
 
@@ -33,7 +33,7 @@ describe("contract", () => {
     await system.run(); // Execute
   
     // Check counter
-    expect(await contract.getCounter()).toEqual(0n); // Deploy start state 
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
     await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 1n });
     await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
@@ -57,7 +57,7 @@ describe("contract", () => {
     await system.run();
 
     // Check counter
-    expect(await contract.getCounter()).toEqual(0n);
+    expect(await contract.getFunds()).toEqual(0n);
 
   });
 
@@ -70,7 +70,7 @@ describe("contract", () => {
     await system.run(); // Execute
   
     // Check counter
-    expect(await contract.getCounter()).toEqual(0n); // Deploy start state 
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
     await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 8n });
     await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
@@ -78,7 +78,7 @@ describe("contract", () => {
     await system.run();
 
     // Check counter
-    expect(await contract.getCounter()).toEqual(1n);
+    expect(await contract.getFunds()).toEqual(1n);
 
   });
 
@@ -91,15 +91,15 @@ describe("contract", () => {
     await system.run(); // Execute
   
     // Check counter
-    expect(await contract.getCounter()).toEqual(0n); // Deploy start state 
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
-    let currentStatus1 = await contract.getGetContractStatus();
+    let currentStatus1 = await contract.getContractStatus();
     console.log(currentStatus1);
 
     await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 2n });
     await system.run();
 
-    let currentStatus = await contract.getGetContractStatus();
+    let currentStatus = await contract.getContractStatus();
 
     console.log(currentStatus);
   

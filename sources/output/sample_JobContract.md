@@ -36,11 +36,11 @@ Signature: `Update_Status{statusID:uint32}`
 # Get Methods
 Total Get Methods: 3
 
-## counter
+## Funds
 
-## getDeployedTime
+## DeployedTime
 
-## getContractStatus
+## ContractStatus
 
 # Error Codes
 2: Stack undeflow

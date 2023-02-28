@@ -12,14 +12,14 @@ message Update_Status {
 contract JobContract with Deployable {
 
     owner: Address;
-    counter: Int as uint32;
+    funds: Int as uint32;
     deployed_time: Int as uint64;
     contract_status: Int;
 
 
     init(owner: Address) {
         self.owner = owner;
-        self.counter = 0;
+        self.funds = 0;
         self.deployed_time = now();
         self.contract_status = 0;
     }
@@ -34,8 +34,8 @@ contract JobContract with Deployable {
         // require(ctx.sender == self.owner, "Invalid sender");
         
         
-        // Update counter
-        self.counter = (self.counter + v);
+        // Update funds
+        self.funds = (self.funds + v);
     }
 
     fun update_Status(v: Int) {
@@ -80,15 +80,15 @@ contract JobContract with Deployable {
         self.contract_status;
     }
 
-    get fun counter(): Int {
-        return self.counter;
+    get fun Funds(): Int {
+        return self.funds;
     }
 
-    get fun getDeployedTime(): Int {
+    get fun DeployedTime(): Int {
         return self.deployed_time; 
     }
 
-    get fun getContractStatus(): Int {
+    get fun ContractStatus(): Int {
         return self.contract_status;
     }
 }

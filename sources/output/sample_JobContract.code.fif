@@ -21,12 +21,12 @@ PROGRAM{
   DECLPROC $reply
   DECLPROC $__gen_JobContract_fund_Project
   DECLPROC $__gen_JobContract_update_Status
-  DECLPROC $__gen_JobContract_counter
-  104984 DECLMETHOD $__gen_get_counter
-  DECLPROC $__gen_JobContract_getDeployedTime
-  78415 DECLMETHOD $__gen_get_getDeployedTime
-  DECLPROC $__gen_JobContract_getContractStatus
-  83319 DECLMETHOD $__gen_get_getContractStatus
+  DECLPROC $__gen_JobContract_Funds
+  76717 DECLMETHOD $__gen_get_Funds
+  DECLPROC $__gen_JobContract_DeployedTime
+  109008 DECLMETHOD $__gen_get_DeployedTime
+  DECLPROC $__gen_JobContract_ContractStatus
+  127792 DECLMETHOD $__gen_get_ContractStatus
   DECLPROC $__gen_JobContract_receive_Fund_Project
   DECLPROC $__gen_JobContract_receive_Update_Status
   DECLPROC $__gen_JobContract_receive_comment_dd713384efd9e429e4c4eda1f4412960e450a994f497d979f250df07ddbeccd6
@@ -293,28 +293,28 @@ PROGRAM{
     7 LESSINT
     THROWANYIFNOT
   }>
-  $__gen_JobContract_counter PROCREF:<{
+  $__gen_JobContract_Funds PROCREF:<{
     s2 s3 XCHG
     3 BLKDROP
   }>
-  $__gen_get_counter PROC:<{
+  $__gen_get_Funds PROC:<{
     __gen_load_JobContract INLINECALLDICT
-    $__gen_JobContract_counter INLINECALLDICT
+    $__gen_JobContract_Funds INLINECALLDICT
   }>
-  $__gen_JobContract_getDeployedTime PROCREF:<{
+  $__gen_JobContract_DeployedTime PROCREF:<{
     s1 s3 XCHG
     3 BLKDROP
   }>
-  $__gen_get_getDeployedTime PROC:<{
+  $__gen_get_DeployedTime PROC:<{
     __gen_load_JobContract INLINECALLDICT
-    $__gen_JobContract_getDeployedTime INLINECALLDICT
+    $__gen_JobContract_DeployedTime INLINECALLDICT
   }>
-  $__gen_JobContract_getContractStatus PROCREF:<{
+  $__gen_JobContract_ContractStatus PROCREF:<{
     3 1 BLKDROP2
   }>
-  $__gen_get_getContractStatus PROC:<{
+  $__gen_get_ContractStatus PROC:<{
     __gen_load_JobContract INLINECALLDICT
-    $__gen_JobContract_getContractStatus INLINECALLDICT
+    $__gen_JobContract_ContractStatus INLINECALLDICT
   }>
   $__gen_JobContract_receive_Fund_Project PROCINLINE:<{
     $__gen_JobContract_fund_Project INLINECALLDICT
@@ -438,7 +438,7 @@ PROGRAM{
     42980537499636128163026532310500881091 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d576272464e4144647036583271713759796b526e317061593675585a393941365038663856476551336b6a41} PUSHSLICE
+    x{697066733a2f2f516d6146464568623337366d36344e415375714a6d374673457a4266343647335a6d675763323438786f32476b6b} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
