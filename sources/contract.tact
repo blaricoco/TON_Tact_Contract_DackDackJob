@@ -15,6 +15,7 @@ contract JobContract with Deployable {
     funds: Int as uint32;
     deployed_time: Int as uint64;
     contract_status: Int;
+    max_time_to_deposit: Int as uint64;
 
 
     init(owner: Address) {
@@ -22,6 +23,7 @@ contract JobContract with Deployable {
         self.funds = 0;
         self.deployed_time = now();
         self.contract_status = 0;
+        self.max_time_to_deposit = 259200;
     }
 
     fun fund_Project(v: Int) {
@@ -82,5 +84,9 @@ contract JobContract with Deployable {
 
     get fun ContractStatus(): Int {
         return self.contract_status;
+    }
+
+    get fun MaxTimeToDeposit(): Int {
+        return self.max_time_to_deposit;
     }
 }

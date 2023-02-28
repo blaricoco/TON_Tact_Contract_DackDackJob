@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 705 bytes
+BOC Size: 781 bytes
 
 # Types
 Total Types: 7
@@ -34,13 +34,15 @@ TLB: `update_status#3200e09b statusID:uint32 = Update_Status`
 Signature: `Update_Status{statusID:uint32}`
 
 # Get Methods
-Total Get Methods: 3
+Total Get Methods: 4
 
 ## Funds
 
 ## DeployedTime
 
 ## ContractStatus
+
+## MaxTimeToDeposit
 
 # Error Codes
 2: Stack undeflow

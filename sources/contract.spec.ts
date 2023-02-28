@@ -82,7 +82,7 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - Get functionality - getGetContractStatus ", async () => {
+  it("Fund_Project - CHECK GETTERS - getGetContractStatus ", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
     let owner = system.treasure("owner"); // Creates wallet (owner)
@@ -93,19 +93,65 @@ describe("contract", () => {
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
-    let currentStatus1 = await contract.getContractStatus();
-    console.log(currentStatus1);
-
     await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 2n });
     await system.run();
 
     let currentStatus = await contract.getContractStatus();
 
-    console.log(currentStatus);
-  
-
     // Check counter
     expect(currentStatus).toEqual(2n);
+
+  });
+
+  it("Fund_Project - CHECK GETTERS - getDeployedTime ", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let owner = system.treasure("owner"); // Creates wallet (owner)
+    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
+    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    // Check counter
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
+
+    await system.run();
+
+    // Get contract date 
+    let deployedTime = await contract.getDeployedTime();
+    var date = new Date(Number(deployedTime) * 1000);
+    var day = date.getDay();
+
+    // Get todays date
+    var today = new Date();
+
+    // Todays day should be equal to contract deployed day
+    expect(day).toEqual(today.getDay());
+
+  });
+
+  it("Fund_Project - CHECK GETTERS - getMaxTimeToDeposit ", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let owner = system.treasure("owner"); // Creates wallet (owner)
+    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
+    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    // Check counter
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
+
+    await system.run();
+
+    let deployedTime = await contract.getDeployedTime();
+
+    // Get contract date 
+    let maxTimeToDeposit = await contract.getMaxTimeToDeposit();
+    var dateDeposit = new Date(Number(deployedTime - maxTimeToDeposit) * 1000);
+
+    console.log(dateDeposit);
+   
+    // Max time to deposit should be 259200 which translates to 3 days in seconds
+    expect(Number(maxTimeToDeposit)).toEqual(259200);
 
   });
 
