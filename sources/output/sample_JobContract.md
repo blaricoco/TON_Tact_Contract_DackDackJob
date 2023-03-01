@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 792 bytes
+BOC Size: 818 bytes
 
 # Types
 Total Types: 7
@@ -72,3 +72,4 @@ Total Get Methods: 4
 7872: Max time to deposit exceeded
 27002: Invalid status
 38831: Incorrect State
+57710: Incorrect amount to fund contract

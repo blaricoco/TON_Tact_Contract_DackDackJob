@@ -73,12 +73,12 @@ describe("contract", () => {
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
     await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 8n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 250n });
     
     await system.run();
 
     // Check counter
-    expect(await contract.getFunds()).toEqual(1n);
+    expect(await contract.getFunds()).toEqual(250n);
 
   });
 
@@ -168,11 +168,40 @@ describe("contract", () => {
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 2n})
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n})
     await system.run();
    
     // Max time to deposit should be in 3 days - allowing deposit
-    expect(await contract.getFunds()).toEqual(2n);
+    expect(await contract.getFunds()).toEqual(250n);
+
+  });
+
+  it("Fund_Project - CHECK - Incorrect funding amount should not increase funds", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let owner = system.treasure("owner"); // Creates wallet (owner)
+    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
+    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    // Check counter
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
+    await system.run();
+
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1n})
+    await system.run();
+
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 10n})
+    await system.run();
+
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1000n})
+    await system.run();
+
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 251n})
+    await system.run();
+   
+    // No funding change with incorrect amount 
+    expect(await contract.getFunds()).toBeLessThanOrEqual(0n);
 
   });
   //   it("should deploy correctly", async () => {

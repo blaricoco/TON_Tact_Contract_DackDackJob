@@ -16,6 +16,7 @@ contract JobContract with Deployable {
     deployed_time: Int as uint64;
     contract_status: Int;
     max_time_to_deposit: Int as uint64;
+    contract_price: Int as uint32;
 
 
     init(owner: Address) {
@@ -24,6 +25,7 @@ contract JobContract with Deployable {
         self.deployed_time = now();
         self.contract_status = 0;
         self.max_time_to_deposit = 259200;
+        self.contract_price = 250;
     }
 
     fun fund_Project(v: Int) {
@@ -32,11 +34,9 @@ contract JobContract with Deployable {
         require(self.contract_status == 0, "Incorrect State");
         // Check max time to deposit has not been exceeded
         require(now() <= self.deployed_time + self.max_time_to_deposit, "Max time to deposit exceeded");
-        // Check sender - 
-        //let ctx: Context = context();
-        // require(ctx.sender == self.owner, "Invalid sender");
-        
-        
+        // Check funds being deposited is exactly 
+        require(v == self.contract_price, "Incorrect amount to fund contract");
+
         // Update funds
         self.funds = (self.funds + v);
     }
