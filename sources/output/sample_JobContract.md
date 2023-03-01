@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 781 bytes
+BOC Size: 792 bytes
 
 # Types
 Total Types: 7
@@ -69,5 +69,6 @@ Total Get Methods: 4
 135: Code of a contract was not found
 136: Invalid address
 4429: Invalid sender
+7872: Max time to deposit exceeded
 27002: Invalid status
 38831: Incorrect State

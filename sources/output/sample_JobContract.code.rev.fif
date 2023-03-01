@@ -89,6 +89,12 @@ SETCP0
           s3 PUSH
           0 EQINT
           THROWANYIFNOT
+          7872 PUSHINT
+          NOW
+          s5 s3 PUSH2
+          ADD
+          LEQ
+          THROWANYIFNOT
           s1 s4 XCHG
           ADD
           s0 s3 XCHG

@@ -169,6 +169,7 @@ builder __gen_write_JobContract(builder build_0, (slice, int, int, int, int) v) 
 ((slice, int, int, int, int), ()) $__gen_JobContract_fund_Project((slice, int, int, int, int) $self, int $v) impure inline_ref {
     var (($self'owner, $self'funds, $self'deployed_time, $self'contract_status, $self'max_time_to_deposit)) = $self;
     throw_unless(38831, ($self'contract_status == 0));
+    throw_unless(7872, (now() <= ($self'deployed_time + $self'max_time_to_deposit)));
     $self'funds = ($self'funds + $v);
     return (($self'owner, $self'funds, $self'deployed_time, $self'contract_status, $self'max_time_to_deposit), ());
 }
@@ -317,7 +318,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmRxLnsAPhF4jj5qqCxFBfVAvhnBiJNc5wmsiazxuEv7vz";
+    return "ipfs://QmV851P9RS3WYcqxyWfEZ76BSKiLenjfUvKmyVGsDRTx5n";
 }
 
 _ lazy_deployment_completed() {

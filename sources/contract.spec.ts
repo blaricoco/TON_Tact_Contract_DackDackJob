@@ -155,6 +155,26 @@ describe("contract", () => {
 
   });
 
+  // TODO: To be tested in testnet for longer period of time
+  it("Fund_Project - CHECK - Max time to deposit exceeded ", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let owner = system.treasure("owner"); // Creates wallet (owner)
+    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
+    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    // Check counter
+    expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
+    await system.run();
+
+    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 2n})
+    await system.run();
+   
+    // Max time to deposit should be in 3 days - allowing deposit
+    expect(await contract.getFunds()).toEqual(2n);
+
+  });
   //   it("should deploy correctly", async () => {
   //       // Create ContractSystem and deploy contract 
   //       let system = await ContractSystem.create(); //dummy blockchain 

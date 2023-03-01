@@ -30,7 +30,8 @@ contract JobContract with Deployable {
         
         // Check state - Unfunded 
         require(self.contract_status == 0, "Incorrect State");
-        //require(now(), "Max time to deposit exceeded")
+        // Check max time to deposit has not been exceeded
+        require(now() <= self.deployed_time + self.max_time_to_deposit, "Max time to deposit exceeded");
         // Check sender - 
         //let ctx: Context = context();
         // require(ctx.sender == self.owner, "Invalid sender");
