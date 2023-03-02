@@ -25,6 +25,8 @@ PROGRAM{
   76717 DECLMETHOD $__gen_get_Funds
   DECLPROC $__gen_JobContract_DeployedTime
   109008 DECLMETHOD $__gen_get_DeployedTime
+  DECLPROC $__gen_JobContract_DepositTime
+  83848 DECLMETHOD $__gen_get_DepositTime
   DECLPROC $__gen_JobContract_ContractStatus
   127792 DECLMETHOD $__gen_get_ContractStatus
   DECLPROC $__gen_JobContract_MaxTimeToDeposit
@@ -106,10 +108,12 @@ PROGRAM{
     SWAP
   }>
   __gen_write_JobContract PROCINLINE:<{
-    s6 s5 XCHG2
+    s7 s6 XCHG2
     __tact_store_address INLINECALLDICT
-    s1 s3 XCHG
+    s1 s4 XCHG
     32 STU
+    s1 s2 XCHG
+    64 STU
     64 STU
     257 PUSHINT
     STIX
@@ -122,19 +126,21 @@ PROGRAM{
     SWAP
     32 LDU
     64 LDU
+    64 LDU
     257 PUSHINT
     LDIX
     64 LDU
     32 LDU
-    6 -ROLL
+    7 -ROLL
   }>
   __gen_read_$init$JobContract PROCINLINE:<{
     __tact_load_address INLINECALLDICT
   }>
   $__gen_JobContract_init PROCREF:<{
+    PUSHNULL
     0 PUSHINT
     NOW
-    OVER
+    s0 s2 s2 XC2PU
     259200 PUSHINT
     250 PUSHINT
   }>
@@ -148,7 +154,7 @@ PROGRAM{
     SWAP
     IF:<{
       __gen_read_JobContract INLINECALLDICT
-      1 6 BLKDROP2
+      1 7 BLKDROP2
     }>ELSE<{
       __gen_read_$init$JobContract INLINECALLDICT
       SWAP
@@ -164,7 +170,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    6 -ROLL
+    7 -ROLL
     __gen_write_JobContract INLINECALLDICT
     ENDC
     c4 POP
@@ -285,23 +291,28 @@ PROGRAM{
     $send INLINECALLDICT
   }>
   $__gen_JobContract_fund_Project PROCREF:<{
+    s4 POP
     38831 PUSHINT
-    s4 PUSH
+    s0 s3 XCHG
     0 EQINT
+    s1 s3 XCHG
     THROWANYIFNOT
     7872 PUSHINT
     NOW
-    s6 s4 PUSH2
+    s5 s2 PUSH2
     ADD
     LEQ
     THROWANYIFNOT
     57710 PUSHINT
-    s1 s2 PUSH2
+    2OVER
     EQUAL
     THROWANYIFNOT
-    s1 s5 XCHG
+    s4 s2 XCHG2
     ADD
-    s0 s4 XCHG
+    NOW
+    s4 s2 XCHG2
+    1 PUSHINT
+    s0 s2 XCHG
   }>
   $__gen_JobContract_update_Status PROCREF:<{
     s3 POP
@@ -311,32 +322,40 @@ PROGRAM{
     THROWANYIFNOT
   }>
   $__gen_JobContract_Funds PROCREF:<{
-    s4 s5 XCHG
-    5 BLKDROP
+    s5 s6 XCHG
+    6 BLKDROP
   }>
   $__gen_get_Funds PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_Funds INLINECALLDICT
   }>
   $__gen_JobContract_DeployedTime PROCREF:<{
-    s3 s5 XCHG
-    5 BLKDROP
+    s4 s6 XCHG
+    6 BLKDROP
   }>
   $__gen_get_DeployedTime PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_DeployedTime INLINECALLDICT
   }>
+  $__gen_JobContract_DepositTime PROCREF:<{
+    s3 s6 XCHG
+    6 BLKDROP
+  }>
+  $__gen_get_DepositTime PROC:<{
+    __gen_load_JobContract INLINECALLDICT
+    $__gen_JobContract_DepositTime INLINECALLDICT
+  }>
   $__gen_JobContract_ContractStatus PROCREF:<{
-    s2 s5 XCHG
-    5 BLKDROP
+    s2 s6 XCHG
+    6 BLKDROP
   }>
   $__gen_get_ContractStatus PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_ContractStatus INLINECALLDICT
   }>
   $__gen_JobContract_MaxTimeToDeposit PROCREF:<{
-    s1 s5 XCHG
-    5 BLKDROP
+    s1 s6 XCHG
+    6 BLKDROP
   }>
   $__gen_get_MaxTimeToDeposit PROC:<{
     __gen_load_JobContract INLINECALLDICT
@@ -422,7 +441,7 @@ PROGRAM{
     4 TUPLE
     __tact_context SETGLOB
     __gen_load_JobContract INLINECALLDICT
-    2 6 BLKSWAP
+    2 7 BLKSWAP
     __gen_router_JobContract INLINECALLDICT
     DROP
     __gen_store_JobContract INLINECALLDICT
@@ -433,7 +452,7 @@ PROGRAM{
     42980537499636128163026532310500881091 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d624c6e756547796f444a37364165794c5164686e5143647477514333726a73354a4b4270666950697a776b39} PUSHSLICE
+    x{697066733a2f2f516d556676673369396e757445795146344d504b534243354c675a4d36656e3343585672764d675a4e3863545770} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

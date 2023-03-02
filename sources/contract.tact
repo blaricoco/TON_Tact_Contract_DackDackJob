@@ -14,6 +14,7 @@ contract JobContract with Deployable {
     owner: Address;
     funds: Int as uint32;
     deployed_time: Int as uint64;
+    deposit_time: Int as uint64;
     contract_status: Int;
     max_time_to_deposit: Int as uint64;
     contract_price: Int as uint32;
@@ -37,8 +38,10 @@ contract JobContract with Deployable {
         // Check funds being deposited is exactly 
         require(v == self.contract_price, "Incorrect amount to fund contract");
 
-        // Update funds
+        // Update contract for stage - Funded
         self.funds = (self.funds + v);
+        self.deposit_time = now();
+        self.contract_status = 1;
     }
 
     fun update_Status(v: Int) {
@@ -81,6 +84,10 @@ contract JobContract with Deployable {
 
     get fun DeployedTime(): Int {
         return self.deployed_time; 
+    }
+
+    get fun DepositTime(): Int {
+        return self.deposit_time;
     }
 
     get fun ContractStatus(): Int {
