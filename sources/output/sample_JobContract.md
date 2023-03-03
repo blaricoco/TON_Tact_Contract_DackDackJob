@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 906 bytes
+BOC Size: 1031 bytes
 
 # Types
 Total Types: 7

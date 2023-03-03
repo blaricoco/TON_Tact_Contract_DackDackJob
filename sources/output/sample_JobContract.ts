@@ -357,23 +357,25 @@ function dictValueParserUpdate_Status(): DictionaryValue<Update_Status> {
 
  type JobContract_init_args = {
     $$type: 'JobContract_init_args';
-    owner: Address;
+    seller: Address;
+    buyer: Address;
 }
 
 function initJobContract_init_args(src: JobContract_init_args) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.seller);
+        b_0.storeAddress(src.buyer);
     };
 }
 
-async function JobContract_init(owner: Address) {
-    const __code = Cell.fromBase64('te6ccgECGwEAA34AART/APSkE/S88sgLAQIBYgIDAt7QAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zziVRbbPDDI+EIBzH8BygBVYFB2zxYUyx8Syz/LP4EBAc8AEss/yx/J7VQZBAIBIAsMA7xwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gAYIQlGqYtrrjAjBwBQYHAE40ggCXrwPAABPy9IEewPgjU1Kgu/L0ggDhbl268vRQQqD4I1BCcQIAEjOBaXojwQfy9AFE0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fwgBJvhBbyQQI18Df3BQA4BCAW1t2zwJAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMKADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wACASANDgIBIBESAmO6ut7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyBkPAmO4eI7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyBkQAAgQVl8GAAgQNl8GAgFYExQCASAWFwJjsnQ7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyAZFQBxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAAgQRl8GAmO0ZR2omhqAPwxaQAAxwv9IACA6Y/pn+mfwICA64Bpn+mPqrA2C8dD/SAAgOjtnnFtnkBkYAmO2Zh2omhqAPwxaQAAxwv9IACA6Y/pn+mfwICA64Bpn+mPqrA2C8dD/SAAgOjtnnFtnkBkaAAYWXwYAHG1w+CNUECKCA/SAgQD6AAgQJl8G');
-    const __system = Cell.fromBase64('te6cckECHQEAA4gAAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIUBAIBIA8FAgEgCwYCASAJBwJjtmYdqJoagD8MWkAAMcL/SAAgOmP6Z/pn8CAgOuAaZ/pj6qwNgvHQ/0gAIDo7Z5xbZ5AcCAAIECZfBgJjtGUdqJoagD8MWkAAMcL/SAAgOmP6Z/pn8CAgOuAaZ/pj6qwNgvHQ/0gAIDo7Z5xbZ5AcCgAGFl8GAgFYDQwAcbL0YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4AJjsnQ7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyAcDgAIEEZfBgIBIBIQAmO4eI7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyBwRAAgQNl8GAmO6ut7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zzi2zyBwTAAgQVl8GAt7QAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4X+kABAdMf0z/TP4EBAdcA0z/TH1VgbBeOh/pAAQHR2zziVRbbPDDI+EIBzH8BygBVYFB2zxYUyx8Syz/LP4EBAc8AEss/yx/J7VQcFQO8cCHXScIflTAg1wsf3gKSW3/gIYIQRC1EbrqOlTHTHwGCEEQtRG668uCB0x8BMds8f+AhghAyAOCbuo6VMdMfAYIQMgDgm7ry4IHTHwEx2zx/4AGCEJRqmLa64wIwcBsaFgFE0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fxcBJvhBbyQQI18Df3BQA4BCAW1t2zwYAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMZADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAAEjOBaXojwQfy9ABONIIAl68DwAAT8vSBHsD4I1NSoLvy9IIA4W5duvL0UEKg+CNQQnECABxtcPgjVBAiggP0gIEA+neNM6M=');
+async function JobContract_init(seller: Address, buyer: Address) {
+    const __code = Cell.fromBase64('te6ccgECHAEAA/sAART/APSkE/S88sgLAQIBYgIDA7zQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84lUX2zwwGgQFAgEgDA0DvHAh10nCH5UwINcLH94Cklt/4CGCEEQtRG66jpUx0x8BghBELURuuvLggdMfATHbPH/gIYIQMgDgm7qOlTHTHwGCEDIA4Ju68uCB0x8BMds8f+ABghCUapi2uuMCMHAGBwgAWMj4QgHMfwHKAFVwUIfPFlAFzxYTyx/LP8s/gQEBzwASyz8ByMsfyQHMye1UAE40ggCXrwPAABPy9IEewPgjU1Kgu/L0ggDhbl268vRQQqD4I1BCcQIAEjOBaXojwQfy9AFE0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fwkBJvhBbyQQI18Df3BQA4BCAW1t2zwKAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMLADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wACASAODwIBIBITAom6ut7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84ts8gaEAKJuHiO1E0NQB+GLSAAGOJPpAAQH6QAEB0x/TP9M/gQEB1wDTP9QB0NMfMBgXFhUUQzBsGI6N+kABAfpAARIC0QHbPOLbPIGhEACBBXXwcACBA3XwcCAVgUFQIBIBcYAomydDtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zzi2zyAaFgBxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAAgQR18HAom0ZR2omhqAPwxaQAAxxJ9IACA/SAAgOmP6Z/pn8CAgOuAaZ/qAOhpj5gMC4sKiiGYNgxHRv0gAID9IACJAWiA7Z5xbZ5AaGQKJtmYdqJoagD8MWkAAMcSfSAAgP0gAIDpj+mf6Z/AgIDrgGmf6gDoaY+YDAuLCoohmDYMR0b9IACA/SAAiQFogO2ecW2eQGhsABhdfBwAcbXD4I1QQIoID9ICBAPoACBAnXwc=');
+    const __system = Cell.fromBase64('te6cckECHgEABAUAAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIUBAIBIA8FAgEgCwYCASAJBwKJtmYdqJoagD8MWkAAMcSfSAAgP0gAIDpj+mf6Z/AgIDrgGmf6gDoaY+YDAuLCoohmDYMR0b9IACA/SAAiQFogO2ecW2eQHQgACBAnXwcCibRlHaiaGoA/DFpAADHEn0gAID9IACA6Y/pn+mfwICA64Bpn+oA6GmPmAwLiwqKIZg2DEdG/SAAgP0gAIkBaIDtnnFtnkB0KAAYXXwcCAVgNDABxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAomydDtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zzi2zyAdDgAIEEdfBwIBIBIQAom4eI7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84ts8gdEQAIEDdfBwKJurre1E0NQB+GLSAAGOJPpAAQH6QAEB0x/TP9M/gQEB1wDTP9QB0NMfMBgXFhUUQzBsGI6N+kABAfpAARIC0QHbPOLbPIHRMACBBXXwcDvNAB0NMDAXGwwAGRf5Fw4gH6QCJQVW8E+GHtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zziVRfbPDAdFhUAWMj4QgHMfwHKAFVwUIfPFlAFzxYTyx/LP8s/gQEBzwASyz8ByMsfyQHMye1UA7xwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gAYIQlGqYtrrjAjBwHBsXAUTTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J2zx/GAEm+EFvJBAjXwN/cFADgEIBbW3bPBkB9shxAcoBUAcBygBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY5MfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzJczMwFwAcoA4iFusxoAMJx/AcoAASBu8tCAAcyVMXABygDiyQH7AAASM4FpeiPBB/L0AE40ggCXrwPAABPy9IEewPgjU1Kgu/L0ggDhbl268vRQQqD4I1BCcQIAHG1w+CNUECKCA/SAgQD6PMx1Ww==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initJobContract_init_args({ $$type: 'JobContract_init_args', owner })(builder);
+    initJobContract_init_args({ $$type: 'JobContract_init_args', seller, buyer })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
@@ -411,12 +413,12 @@ const JobContract_errors: { [key: number]: { message: string } } = {
 
 export class JobContract implements Contract {
     
-    static async init(owner: Address) {
-        return await JobContract_init(owner);
+    static async init(seller: Address, buyer: Address) {
+        return await JobContract_init(seller, buyer);
     }
     
-    static async fromInit(owner: Address) {
-        const init = await JobContract_init(owner);
+    static async fromInit(seller: Address, buyer: Address) {
+        const init = await JobContract_init(seller, buyer);
         const address = contractAddress(0, init);
         return new JobContract(address, init);
     }

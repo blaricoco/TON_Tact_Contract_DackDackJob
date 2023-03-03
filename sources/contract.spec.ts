@@ -4,12 +4,14 @@ import { JobContract } from "./output/sample_JobContract";
 
 describe("contract", () => {
 
-  it("Fund_Project - CHECK STATUS UNFUNDED - Project Created", async () => {
+  it("1) Fund_Project - CHECK STATUS UNFUNDED - Project Created", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
@@ -24,34 +26,36 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK STATUS FUNDED - should not allow funding", async () => {
+  it("2) Fund_Project - CHECK STATUS FUNDED - should not allow funding", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 1n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
     
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 3n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 3n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
     
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 4n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 4n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
     
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 4n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 4n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
 
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 5n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 5n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
 
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 6n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 6n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 1n });
    
     
     await system.run();
@@ -61,19 +65,21 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK STATUS INVALID - Should allow funding", async () => {
+  it("3) Fund_Project - CHECK STATUS INVALID - Should allow funding", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
 
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 8n });
-    await contract.send(owner, { value: toNano(1) },  { $$type: "Fund_Project", amount: 250n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 8n });
+    await contract.send(seller, { value: toNano(1) },  { $$type: "Fund_Project", amount: 250n });
     
     await system.run();
 
@@ -86,12 +92,12 @@ describe("contract", () => {
   // it("Fund_Project - CHECK GETTERS - getContractStatus ", async () => {
   //   // Create ContractSystem and deploy contract 
   //   let system = await ContractSystem.create(); //dummy blockchain 
-  //   let owner = system.treasure("owner"); // Creates wallet (owner)
-  //   let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-  //   await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+  //   let seller = system.treasure("seller"); // Creates wallet (seller)
+  //   let contract = system.open(await JobContract.fromInit(seller.address)); // Open contract - using contract 
+  //   await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
   //   await system.run(); // Execute
   
-  //   await contract.send(owner, { value: toNano(1) },  { $$type: "Update_Status", statusID: 3n });
+  //   await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 3n });
   //   await system.run();
 
     
@@ -101,12 +107,14 @@ describe("contract", () => {
 
   // });
 
-  it("Fund_Project - CHECK GETTERS - getDeployedTime ", async () => {
+  it("4) Fund_Project - CHECK GETTERS - getDeployedTime ", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
@@ -127,12 +135,14 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK GETTERS - getMaxTimeToDeposit ", async () => {
+  it("5) Fund_Project - CHECK GETTERS - getMaxTimeToDeposit ", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
@@ -154,19 +164,21 @@ describe("contract", () => {
   });
 
   // TODO: To be tested in testnet for longer period of time
-  it("Fund_Project - CHECK - Max time to deposit exceeded ", async () => {
+  it("6) Fund_Project - CHECK - Max time to deposit exceeded ", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n})
     await system.run();
    
     // Max time to deposit should be in 3 days - allowing deposit
@@ -174,28 +186,30 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - CHECK - Incorrect funding amount should not increase funds", async () => {
+  it("7) Fund_Project - CHECK - Incorrect funding amount should not increase funds", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1n})
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 10n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 10n})
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1000n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 1000n})
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 251n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 251n})
     await system.run();
    
     // No funding change with incorrect amount 
@@ -203,19 +217,21 @@ describe("contract", () => {
 
   });
 
-  it("Fund_Project - Should update contract status to 1 - Funded", async () => {
+  it("8) und_Project - Should update contract status to 1 - Funded", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
-    let owner = system.treasure("owner"); // Creates wallet (owner)
-    let contract = system.open(await JobContract.fromInit(owner.address)); // Open contract - using contract 
-    await contract.send(owner, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
     await system.run(); // Execute
   
     // Check counter
     expect(await contract.getFunds()).toEqual(0n); // Deploy start state 
     await system.run();
 
-    await contract.send(owner, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n})
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n})
     await system.run();
 
     // No funding change with incorrect amount 

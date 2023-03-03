@@ -11,7 +11,8 @@ message Update_Status {
 
 contract JobContract with Deployable {
 
-    owner: Address;
+    seller: Address;
+    buyer: Address;
     funds: Int as uint32;
     deployed_time: Int as uint64;
     deposit_time: Int as uint64;
@@ -20,8 +21,9 @@ contract JobContract with Deployable {
     contract_price: Int as uint32;
 
 
-    init(owner: Address) {
-        self.owner = owner;
+    init(seller: Address, buyer: Address) {
+        self.seller = seller;
+        self.buyer = buyer;
         self.funds = 0;
         self.deployed_time = now();
         self.contract_status = 0;
@@ -56,10 +58,10 @@ contract JobContract with Deployable {
         // Check sender
 
         let ctx: Context = context();
-        require(ctx.sender == self.owner, "Invalid sender");
+        require(ctx.sender == self.seller, "Invalid sender");
 
         send(SendParameters{
-            to: self.owner,
+            to: self.seller,
             value: ton("0.5"), 
             mode: SendIgnoreErrors, 
             bounce: true

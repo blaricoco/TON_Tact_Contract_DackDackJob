@@ -4,6 +4,7 @@ This project has ready to use TACT compiler, typescript + jest with [ton-emulato
 
 ```bash
 
+npm install --global yarn
 yarn add @tact-lang/compiler
 
 
