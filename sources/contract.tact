@@ -63,6 +63,10 @@ contract JobContract with Deployable {
         self.contract_status = 2;
     }
 
+    fun buyer_accept() {
+        
+    }
+
     fun update_Status(v: Int) {
         // TODO: Check update status 
         require(v <= 6, "Invalid status");
