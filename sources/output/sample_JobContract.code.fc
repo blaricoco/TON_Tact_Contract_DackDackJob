@@ -30,6 +30,10 @@ builder __tact_store_address(builder b, slice address) inline {
     return b;
 }
 
+int __tact_address_eq(slice a, slice b) inline {
+    return equal_slice_bits(a, b);
+}
+
 (slice, ((int))) __gen_read_Deploy(slice sc_0) inline {
     throw_unless(129, sc_0~load_uint(32) == 2490013878);
     var v'queryId = sc_0~load_uint(64);
@@ -59,8 +63,8 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return (sc_0, (v'statusID));
 }
 
-builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, int, int, int, int) v) inline {
-    var (v'seller, v'buyer, v'funds, v'deployed_time, v'deposit_time, v'delivery_time, v'contract_status, v'max_time_to_deposit, v'contract_price) = v;
+builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, int, int, int, int, int) v) inline {
+    var (v'seller, v'buyer, v'funds, v'deployed_time, v'deposit_time, v'delivery_time, v'contract_status, v'max_time_to_deposit, v'max_time_to_complete, v'contract_price) = v;
     build_0 = __tact_store_address(build_0, v'seller);
     build_0 = __tact_store_address(build_0, v'buyer);
     build_0 = build_0.store_uint(v'funds, 32);
@@ -70,12 +74,13 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     build_0 = build_0.store_int(v'contract_status, 257);
     var build_1 = begin_cell();
     build_1 = build_1.store_uint(v'max_time_to_deposit, 64);
+    build_1 = build_1.store_uint(v'max_time_to_complete, 64);
     build_1 = build_1.store_uint(v'contract_price, 32);
     build_0 = store_ref(build_0, build_1.end_cell());
     return build_0;
 }
 
-(slice, ((slice, slice, int, int, int, int, int, int, int))) __gen_read_JobContract(slice sc_0) inline {
+(slice, ((slice, slice, int, int, int, int, int, int, int, int))) __gen_read_JobContract(slice sc_0) inline {
     var v'seller = sc_0~__tact_load_address();
     var v'buyer = sc_0~__tact_load_address();
     var v'funds = sc_0~load_uint(32);
@@ -85,8 +90,9 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     var v'contract_status = sc_0~load_int(257);
     slice sc_1 = sc_0~load_ref().begin_parse();
     var v'max_time_to_deposit = sc_1~load_uint(64);
+    var v'max_time_to_complete = sc_1~load_uint(64);
     var v'contract_price = sc_1~load_uint(32);
-    return (sc_0, (v'seller, v'buyer, v'funds, v'deployed_time, v'deposit_time, v'delivery_time, v'contract_status, v'max_time_to_deposit, v'contract_price));
+    return (sc_0, (v'seller, v'buyer, v'funds, v'deployed_time, v'deposit_time, v'delivery_time, v'contract_status, v'max_time_to_deposit, v'max_time_to_complete, v'contract_price));
 }
 
 (slice, ((slice, slice))) __gen_read_$init$JobContract(slice sc_0) inline {
@@ -95,8 +101,8 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     return (sc_0, (v'seller, v'buyer));
 }
 
-(slice, slice, int, int, int, int, int, int, int) $__gen_JobContract_init(slice $seller, slice $buyer) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = (null(), null(), null(), null(), null(), null(), null(), null(), null());
+(slice, slice, int, int, int, int, int, int, int, int) $__gen_JobContract_init(slice $seller, slice $buyer) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = (null(), null(), null(), null(), null(), null(), null(), null(), null(), null());
     $self'seller = $seller;
     $self'buyer = $buyer;
     $self'funds = 0;
@@ -105,11 +111,12 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     $self'delivery_time = 0;
     $self'contract_status = 0;
     $self'max_time_to_deposit = 259200;
+    $self'max_time_to_complete = 259200;
     $self'contract_price = 250;
-    return ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price);
+    return ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price);
 }
 
-(slice, slice, int, int, int, int, int, int, int) __gen_load_JobContract() impure inline {
+(slice, slice, int, int, int, int, int, int, int, int) __gen_load_JobContract() impure inline {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
@@ -122,7 +129,7 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     }
 }
 
-() __gen_store_JobContract((slice, slice, int, int, int, int, int, int, int) v) impure inline {
+() __gen_store_JobContract((slice, slice, int, int, int, int, int, int, int, int) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);
@@ -182,33 +189,37 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, $ctx'sender, 0, (64 + 2), $body));
 }
 
-((slice, slice, int, int, int, int, int, int, int), ()) $__gen_JobContract_fund_Project((slice, slice, int, int, int, int, int, int, int) $self, int $v) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
-    throw_unless(38831, ($self'contract_status == 0));
+((slice, slice, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_fund_Project((slice, slice, int, int, int, int, int, int, int, int) $self, int $v) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
+    throw_unless(32991, ($self'contract_status == 0));
     throw_unless(7872, (now() <= ($self'deployed_time + $self'max_time_to_deposit)));
     throw_unless(57710, ($v == $self'contract_price));
     $self'funds = ($self'funds + $v);
     $self'deposit_time = now();
     $self'contract_status = 1;
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-((slice, slice, int, int, int, int, int, int, int), ()) $__gen_JobContract_seller_delivered((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+((slice, slice, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_seller_delivered((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(49940, ($self'contract_status == 1));
+    throw_unless(3234, __tact_address_eq($self'seller, $ctx'sender));
+    throw_unless(22641, (now() <= ($self'deposit_time + $self'max_time_to_complete)));
     $self'delivery_time = now();
     $self'contract_status = 2;
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-((slice, slice, int, int, int, int, int, int, int), ()) $__gen_JobContract_update_Status((slice, slice, int, int, int, int, int, int, int) $self, int $v) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+((slice, slice, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_update_Status((slice, slice, int, int, int, int, int, int, int, int) $self, int $v) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     throw_unless(27002, ($v <= 6));
     $self'contract_status = $v;
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-int $__gen_JobContract_Funds((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_Funds((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'funds;
 }
 
@@ -218,8 +229,8 @@ _ $__gen_get_Funds() method_id(76717) {
     return res;
 }
 
-int $__gen_JobContract_DeployedTime((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_DeployedTime((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'deployed_time;
 }
 
@@ -229,8 +240,8 @@ _ $__gen_get_DeployedTime() method_id(109008) {
     return res;
 }
 
-int $__gen_JobContract_DepositTime((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_DepositTime((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'deposit_time;
 }
 
@@ -240,8 +251,8 @@ _ $__gen_get_DepositTime() method_id(83848) {
     return res;
 }
 
-int $__gen_JobContract_ContractStatus((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_ContractStatus((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'contract_status;
 }
 
@@ -251,8 +262,8 @@ _ $__gen_get_ContractStatus() method_id(127792) {
     return res;
 }
 
-int $__gen_JobContract_MaxTimeToDeposit((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_MaxTimeToDeposit((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'max_time_to_deposit;
 }
 
@@ -262,8 +273,19 @@ _ $__gen_get_MaxTimeToDeposit() method_id(115496) {
     return res;
 }
 
-int $__gen_JobContract_DeliveryTime((slice, slice, int, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)) = $self;
+int $__gen_JobContract_MaxTimeToComplete((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
+    return $self'max_time_to_complete;
+}
+
+_ $__gen_get_MaxTimeToComplete() method_id(83510) {
+    var self = __gen_load_JobContract();
+    var res = $__gen_JobContract_MaxTimeToComplete(self);
+    return res;
+}
+
+int $__gen_JobContract_DeliveryTime((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)) = $self;
     return $self'delivery_time;
 }
 
@@ -273,38 +295,38 @@ _ $__gen_get_DeliveryTime() method_id(89020) {
     return res;
 }
 
-(((slice, slice, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Fund_Project((slice, slice, int, int, int, int, int, int, int) $self, (int) $msg) impure inline {
-    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price) = $self;
+(((slice, slice, int, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Fund_Project((slice, slice, int, int, int, int, int, int, int, int) $self, (int) $msg) impure inline {
+    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price) = $self;
     var ($msg'amount) = $msg;
-    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)~$__gen_JobContract_fund_Project($msg'amount);
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)~$__gen_JobContract_fund_Project($msg'amount);
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-(((slice, slice, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Update_Status((slice, slice, int, int, int, int, int, int, int) $self, (int) $msg) impure inline {
-    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price) = $self;
+(((slice, slice, int, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Update_Status((slice, slice, int, int, int, int, int, int, int, int) $self, (int) $msg) impure inline {
+    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price) = $self;
     var ($msg'statusID) = $msg;
-    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)~$__gen_JobContract_update_Status($msg'statusID);
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)~$__gen_JobContract_update_Status($msg'statusID);
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-((slice, slice, int, int, int, int, int, int, int), ()) $__gen_JobContract_receive_comment_b1a3537d6841749a86c8d3c64f1460bb9ce2403c6252ac8c7959df438fc2652b((slice, slice, int, int, int, int, int, int, int) $self) impure inline {
-    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price) = $self;
-    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price)~$__gen_JobContract_seller_delivered();
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+((slice, slice, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_receive_comment_b1a3537d6841749a86c8d3c64f1460bb9ce2403c6252ac8c7959df438fc2652b((slice, slice, int, int, int, int, int, int, int, int) $self) impure inline {
+    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price) = $self;
+    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price)~$__gen_JobContract_seller_delivered();
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
 ((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
     return (queryId);
 }
 
-(((slice, slice, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Deploy((slice, slice, int, int, int, int, int, int, int) $self, (int) $deploy) impure inline {
-    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price) = $self;
+(((slice, slice, int, int, int, int, int, int, int, int)), ()) $__gen_JobContract_receive_Deploy((slice, slice, int, int, int, int, int, int, int, int) $self, (int) $deploy) impure inline {
+    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'contract_price), ());
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'contract_price), ());
 }
 
-((slice, slice, int, int, int, int, int, int, int), int) __gen_router_JobContract((slice, slice, int, int, int, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+((slice, slice, int, int, int, int, int, int, int, int), int) __gen_router_JobContract((slice, slice, int, int, int, int, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
     
     ;; Parse incoming message
     int op = 0;
@@ -383,7 +405,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://Qmc6UBrFLqNWWBcN7pL33oguui1HrkNLy3NvNKn7rFrWNK";
+    return "ipfs://QmYPV32BpfvPAZmFZ1vUP6DBcKT264E7pqKXhvFUMg6gE3";
 }
 
 _ lazy_deployment_completed() {

@@ -19,6 +19,7 @@ contract JobContract with Deployable {
     delivery_time: Int as uint64;
     contract_status: Int;
     max_time_to_deposit: Int as uint64;
+    max_time_to_complete: Int as uint64;
     contract_price: Int as uint32;
 
 
@@ -31,6 +32,7 @@ contract JobContract with Deployable {
         self.delivery_time = 0;
         self.contract_status = 0;
         self.max_time_to_deposit = 259200;
+        self.max_time_to_complete = 259200;
         self.contract_price = 250;
         
     }
@@ -38,7 +40,7 @@ contract JobContract with Deployable {
     fun fund_Project(v: Int) {
         
         // Check state - Unfunded 
-        require(self.contract_status == 0, "Incorrect State");
+        require(self.contract_status == 0, "Incorrect State, can only be funded when status unfunded");
         // Check max time to deposit has not been exceeded
         require(now() <= self.deployed_time + self.max_time_to_deposit, "Max time to deposit exceeded");
         // Check funds being deposited is exactly 
@@ -51,6 +53,11 @@ contract JobContract with Deployable {
     }
 
     fun seller_delivered() {
+        let ctx: Context = context();
+
+        require(self.contract_status == 1, "Incorrect State, can only be delivered when status funded");
+        require(self.seller == ctx.sender, "Only Seller can deliver");
+        require(now() <= self.deposit_time + self.max_time_to_complete, "Max time to deliver exceeded");
 
         self.delivery_time = now();
         self.contract_status = 2;
@@ -112,6 +119,10 @@ contract JobContract with Deployable {
 
     get fun MaxTimeToDeposit(): Int {
         return self.max_time_to_deposit;
+    }
+
+    get fun MaxTimeToComplete(): Int {
+        return self.max_time_to_complete;
     }
 
     get fun DeliveryTime(): Int {
