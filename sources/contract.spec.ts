@@ -88,25 +88,6 @@ describe("contract", () => {
 
   });
 
-  // TODO: Fix
-  // it("Fund_Project - CHECK GETTERS - getContractStatus ", async () => {
-  //   // Create ContractSystem and deploy contract 
-  //   let system = await ContractSystem.create(); //dummy blockchain 
-  //   let seller = system.treasure("seller"); // Creates wallet (seller)
-  //   let contract = system.open(await JobContract.fromInit(seller.address)); // Open contract - using contract 
-  //   await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
-  //   await system.run(); // Execute
-  
-  //   await contract.send(seller, { value: toNano(1) },  { $$type: "Update_Status", statusID: 3n });
-  //   await system.run();
-
-    
-    
-  //   // Check counter
-  //   expect(await contract.getContractStatus()).toEqual(2n);
-
-  // });
-
   it("4) Fund_Project - CHECK GETTERS - getDeployedTime ", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
@@ -217,7 +198,7 @@ describe("contract", () => {
 
   });
 
-  it("8) und_Project - Should update contract status to 1 - Funded", async () => {
+  it("8) Fund_Project - Should update contract status to 1 - Funded", async () => {
     // Create ContractSystem and deploy contract 
     let system = await ContractSystem.create(); //dummy blockchain 
     let seller = system.treasure("seller"); // Creates wallet (seller)
@@ -236,6 +217,53 @@ describe("contract", () => {
 
     // No funding change with incorrect amount 
     expect(await contract.getContractStatus()).toEqual(1n);
+
+  });
+
+  it("9) seller_delivered - Should update contract status to 2 - Delivered", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    await system.run();
+
+    // No funding change with incorrect amount 
+    expect(await contract.getContractStatus()).toEqual(2n);
+
+  });
+
+  it("10) seller_delivered - delivery_time should be populated - equal to todays date", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    await system.run();
+
+    let deliveryTime = await contract.getDeliveryTime();
+    var deliveryTimeDate = new Date(Number(deliveryTime) * 1000);
+
+    var today = new Date();
+ 
+    // No funding change with incorrect amount 
+    expect(deliveryTimeDate.getDate()).toEqual(today.getDate());
 
   });
 });

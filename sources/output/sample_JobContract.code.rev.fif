@@ -38,21 +38,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -65,17 +67,18 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
-    2 8 BLKSWAP
+    2 9 BLKSWAP
     <{
+      c2 SAVE
+      SAMEALTSAVE
       0 PUSHINT
       s1 PUSH
       SBITS
@@ -106,7 +109,7 @@ SETCP0
         s0 s1 XCHG
         s1 POP
         <{
-          s4 POP
+          s5 POP
           38831 PUSHINT
           s0 s3 XCHG
           0 EQINT
@@ -114,18 +117,18 @@ SETCP0
           THROWANYIFNOT
           7872 PUSHINT
           NOW
-          s5 s2 PUSH2
+          s6 s2 PUSH2
           ADD
           LEQ
           THROWANYIFNOT
           57710 PUSHINT
-          2OVER
+          s4 s2 PUSH2
           EQUAL
           THROWANYIFNOT
-          s4 s2 XCHG2
+          s5 s3 XCHG2
           ADD
           NOW
-          s4 s2 XCHG2
+          s5 s3 XCHG2
           1 PUSHINT
           s0 s2 XCHG
         }> CALLREF
@@ -155,10 +158,11 @@ SETCP0
         -1 PUSHINT
       }> PUSHCONT
       IFJMP
-      s0 s1 XCHG
+      s1 PUSH
       2490013878 PUSHINT
       EQUAL
       <{
+        s1 POP
         32 LDU
         s0 s1 XCHG
         2490013878 PUSHINT
@@ -315,7 +319,29 @@ SETCP0
         }> CALLREF
         -1 PUSHINT
       }> IFJMPREF
-      s0 POP
+      s0 s1 XCHG
+      0 EQINT
+      <{
+        HASHSU
+        80347946496716549555802909439765488297494205698806487183815519820490127598891 PUSHINT
+        EQUAL
+        <{
+          <{
+            s2 POP
+            NOW
+            s3 POP
+            2 PUSHINT
+            s0 s2 XCHG
+          }> CALLREF
+          -1 PUSHINT
+          RETALT
+        }> PUSHCONT
+        IFJMP
+      }> PUSHCONT
+      <{
+        s0 POP
+      }> PUSHCONT
+      IFELSE
       0 PUSHINT
     }> CALLREF
     s0 POP
@@ -326,21 +352,22 @@ SETCP0
     -1 PUSHINT
     s0 s1 XCHG
     1 STI
-    8 1 BLKSWAP
-    s8 s7 XCHG2
+    9 1 BLKSWAP
+    s9 s8 XCHG2
     STSLICER
-    s0 s5 XCHG2
+    s0 s6 XCHG2
     STSLICER
-    s1 s3 XCHG
+    s1 s4 XCHG
     32 STU
+    s1 s2 XCHG
+    64 STU
     64 STU
     64 STU
     257 PUSHINT
     STIX
-    s1 s2 XCHG
-    64 STU
-    s0 s1 XCHG
+    s0 s2 XCHG
     NEWC
+    64 STU
     32 STU
     ENDC
     s0 s1 XCHG
@@ -366,21 +393,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -393,18 +422,17 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
     <{
-      s5 s7 XCHG
-      7 BLKDROP
+      s6 s8 XCHG
+      8 BLKDROP
     }> CALLREF
 
   83848: 
@@ -425,21 +453,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -452,18 +482,77 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
     <{
-      s3 s7 XCHG
-      7 BLKDROP
+      s4 s8 XCHG
+      8 BLKDROP
+    }> CALLREF
+
+  89020: 
+    c4 PUSH
+    CTOS
+    LDREF
+    s0 s1 XCHG
+    2 SETGLOBVAR
+    1 LDI
+    s0 s1 XCHG
+    <{
+      LDMSGADDR
+      s0 s1 XCHG
+      s0 s1 XCHG
+      LDMSGADDR
+      s0 s1 XCHG
+      s0 s1 XCHG
+      32 LDU
+      64 LDU
+      64 LDU
+      64 LDU
+      257 PUSHINT
+      LDI
+      LDREF
+      s0 s1 XCHG
+      CTOS
+      64 LDU
+      32 LDU
+      s0 POP
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
+    }> PUSHCONT
+    <{
+      LDMSGADDR
+      s0 s1 XCHG
+      s0 s1 XCHG
+      LDMSGADDR
+      s0 s1 XCHG
+      s1 s2 XCHG
+      s0 s2 XCHG
+      ENDS
+      s0 s1 XCHG
+      <{
+        0 PUSHINT
+        NOW
+        1 1 1 PUSH3
+        259200 PUSHINT
+        250 PUSHINT
+      }> CALLREF
+    }> PUSHCONT
+    IFELSE
+    <{
+      s3 s8 XCHG
+      8 BLKDROP
     }> CALLREF
 
   109008: 
@@ -484,21 +573,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -511,18 +602,17 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
     <{
-      s4 s7 XCHG
-      7 BLKDROP
+      s5 s8 XCHG
+      8 BLKDROP
     }> CALLREF
 
   113617: 
@@ -548,21 +638,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -575,18 +667,17 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
     <{
-      s1 s7 XCHG
-      7 BLKDROP
+      s1 s8 XCHG
+      8 BLKDROP
     }> CALLREF
 
   127792: 
@@ -607,21 +698,23 @@ SETCP0
       32 LDU
       64 LDU
       64 LDU
+      64 LDU
       257 PUSHINT
       LDI
-      64 LDU
       LDREF
       s0 s1 XCHG
       CTOS
+      64 LDU
       32 LDU
       s0 POP
-      s1 s8 XCHG
-      s1 s7 XCHG
-      s1 s6 XCHG
-      s1 s5 XCHG
-      s1 s4 XCHG
-      s3 s3 s0 XCHG3
-      1 8 BLKDROP2
+      s2 s9 XCHG
+      s2 s8 XCHG
+      s2 s7 XCHG
+      s2 s6 XCHG
+      s2 s5 XCHG
+      s2 s4 XCHG
+      s2 s3 XCHG
+      1 9 BLKDROP2
     }> PUSHCONT
     <{
       LDMSGADDR
@@ -634,18 +727,17 @@ SETCP0
       ENDS
       s0 s1 XCHG
       <{
-        PUSHNULL
         0 PUSHINT
         NOW
-        0 2 2 XC2PU
+        1 1 1 PUSH3
         259200 PUSHINT
         250 PUSHINT
       }> CALLREF
     }> PUSHCONT
     IFELSE
     <{
-      s2 s7 XCHG
-      7 BLKDROP
+      s2 s8 XCHG
+      8 BLKDROP
     }> CALLREF
 ) 19 DICTPUSHCONST
 DICTIGETJMPZ

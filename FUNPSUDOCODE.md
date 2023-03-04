@@ -136,3 +136,7 @@ GETTERS (Read only) - Low cost
 * 
 * 
 * 
+
+### LEARNED
+* Variables need to be initialized in some way - else causing weird issues
+* TBD: Init values might need same naming convention 

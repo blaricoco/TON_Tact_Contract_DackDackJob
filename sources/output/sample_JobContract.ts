@@ -370,8 +370,8 @@ function initJobContract_init_args(src: JobContract_init_args) {
 }
 
 async function JobContract_init(seller: Address, buyer: Address) {
-    const __code = Cell.fromBase64('te6ccgECHAEAA/sAART/APSkE/S88sgLAQIBYgIDA7zQAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84lUX2zwwGgQFAgEgDA0DvHAh10nCH5UwINcLH94Cklt/4CGCEEQtRG66jpUx0x8BghBELURuuvLggdMfATHbPH/gIYIQMgDgm7qOlTHTHwGCEDIA4Ju68uCB0x8BMds8f+ABghCUapi2uuMCMHAGBwgAWMj4QgHMfwHKAFVwUIfPFlAFzxYTyx/LP8s/gQEBzwASyz8ByMsfyQHMye1UAE40ggCXrwPAABPy9IEewPgjU1Kgu/L0ggDhbl268vRQQqD4I1BCcQIAEjOBaXojwQfy9AFE0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8fwkBJvhBbyQQI18Df3BQA4BCAW1t2zwKAfbIcQHKAVAHAcoAcAHKAlAFzxZQA/oCcAHKaCNusyVus7GOTH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMyXMzMBcAHKAOIhbrMLADCcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wACASAODwIBIBITAom6ut7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84ts8gaEAKJuHiO1E0NQB+GLSAAGOJPpAAQH6QAEB0x/TP9M/gQEB1wDTP9QB0NMfMBgXFhUUQzBsGI6N+kABAfpAARIC0QHbPOLbPIGhEACBBXXwcACBA3XwcCAVgUFQIBIBcYAomydDtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zzi2zyAaFgBxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAAgQR18HAom0ZR2omhqAPwxaQAAxxJ9IACA/SAAgOmP6Z/pn8CAgOuAaZ/qAOhpj5gMC4sKiiGYNgxHRv0gAID9IACJAWiA7Z5xbZ5AaGQKJtmYdqJoagD8MWkAAMcSfSAAgP0gAIDpj+mf6Z/AgIDrgGmf6gDoaY+YDAuLCoohmDYMR0b9IACA/SAAiQFogO2ecW2eQGhsABhdfBwAcbXD4I1QQIoID9ICBAPoACBAnXwc=');
-    const __system = Cell.fromBase64('te6cckECHgEABAUAAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIUBAIBIA8FAgEgCwYCASAJBwKJtmYdqJoagD8MWkAAMcSfSAAgP0gAIDpj+mf6Z/AgIDrgGmf6gDoaY+YDAuLCoohmDYMR0b9IACA/SAAiQFogO2ecW2eQHQgACBAnXwcCibRlHaiaGoA/DFpAADHEn0gAID9IACA6Y/pn+mfwICA64Bpn+oA6GmPmAwLiwqKIZg2DEdG/SAAgP0gAIkBaIDtnnFtnkB0KAAYXXwcCAVgNDABxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAomydDtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zzi2zyAdDgAIEEdfBwIBIBIQAom4eI7UTQ1AH4YtIAAY4k+kABAfpAAQHTH9M/0z+BAQHXANM/1AHQ0x8wGBcWFRRDMGwYjo36QAEB+kABEgLRAds84ts8gdEQAIEDdfBwKJurre1E0NQB+GLSAAGOJPpAAQH6QAEB0x/TP9M/gQEB1wDTP9QB0NMfMBgXFhUUQzBsGI6N+kABAfpAARIC0QHbPOLbPIHRMACBBXXwcDvNAB0NMDAXGwwAGRf5Fw4gH6QCJQVW8E+GHtRNDUAfhi0gABjiT6QAEB+kABAdMf0z/TP4EBAdcA0z/UAdDTHzAYFxYVFEMwbBiOjfpAAQH6QAESAtEB2zziVRfbPDAdFhUAWMj4QgHMfwHKAFVwUIfPFlAFzxYTyx/LP8s/gQEBzwASyz8ByMsfyQHMye1UA7xwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gAYIQlGqYtrrjAjBwHBsXAUTTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J2zx/GAEm+EFvJBAjXwN/cFADgEIBbW3bPBkB9shxAcoBUAcBygBwAcoCUAXPFlAD+gJwAcpoI26zJW6zsY5MfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzJczMwFwAcoA4iFusxoAMJx/AcoAASBu8tCAAcyVMXABygDiyQH7AAASM4FpeiPBB/L0AE40ggCXrwPAABPy9IEewPgjU1Kgu/L0ggDhbl268vRQQqD4I1BCcQIAHG1w+CNUECKCA/SAgQD6PMx1Ww==');
+    const __code = Cell.fromBase64('te6ccgECIQEABNUAART/APSkE/S88sgLAQIBYgIDA87QAdDTAwFxsMABkX+RcOIB+kAiUFVvBPhh7UTQ1AH4YtIAAY4t+kABAfpAAQHTH9M/0z/TP4EBAdcA1AHQ0z/THzAQKRAoECcQJhAlECQQI2wZjo36QAEB+kABEgLRAds84lUY2zwwHwQFAgEgDg8Exu2i7ftwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gIYIQlGqYtrrjAgHAAAYHCAkAXMj4QgHMfwHKAFWAUJjPFlAGzxYUyx8Syz/LP8s/gQEBzwACyMs/yx/JAczJ7VQAUDWCAJevA8AAE/L0gR7A+CNTYqC78vSCAOFuU0K68vRQU6D4I1BTcQIAEjOBaXojwQfy9AFGMdMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8nbPH8KAWaOrfkBgvCxo1N9aEF0mobI08ZPFGC7nOJAPGJSrIx5Wd9Dj8JlK7qOhds8f9sx4JEw4nANASb4QW8kECNfA39wUAOAQgFtbds8CwH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zDAAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAAAwy+CMzcgICASAQEQIBIBcYApu6ut7UTQ1AH4YtIAAY4t+kABAfpAAQHTH9M/0z/TP4EBAdcA1AHQ0z/THzAQKRAoECcQJhAlECQQI2wZjo36QAEB+kABEgLRAds84ts8gfEgIBSBMUAAgQaF8IApux4jtRNDUAfhi0gABji36QAEB+kABAdMf0z/TP9M/gQEB1wDUAdDTP9MfMBApECgQJxAmECUQJBAjbBmOjfpAAQH6QAESAtEB2zzi2zyAfFQKbsu87UTQ1AH4YtIAAY4t+kABAfpAAQHTH9M/0z/TP4EBAdcA1AHQ0z/THzAQKRAoECcQJhAlECQQI2wZjo36QAEB+kABEgLRAds84ts8gHxYACBBIXwgACBA4XwgCAVgZGgIBIBwdApuydDtRNDUAfhi0gABji36QAEB+kABAdMf0z/TP9M/gQEB1wDUAdDTP9MfMBApECgQJxAmECUQJBAjbBmOjfpAAQH6QAESAtEB2zzi2zyAfGwBxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgAAgQWF8IApu0ZR2omhqAPwxaQAAxxb9IACA/SAAgOmP6Z/pn+mfwICA64BqAOhpn+mPmAgUiBQIE4gTCBKIEggRtgzHRv0gAID9IACJAWiA7Z5xbZ5AfHgKbtmYdqJoagD8MWkAAMcW/SAAgP0gAIDpj+mf6Z/pn8CAgOuAagDoaZ/pj5gIFIgUCBOIEwgSiBIIEbYMx0b9IACA/SAAiQFogO2ecW2eQHyAABhhfCAAacPgjVHERggP0gIEA+gAIEChfCA==');
+    const __system = Cell.fromBase64('te6cckECIwEABN8AAQHAAQEFoJSbAgEU/wD0pBP0vPLICwMCAWIXBAIBIA8FAgEgCwYCASAJBwKbtmYdqJoagD8MWkAAMcW/SAAgP0gAIDpj+mf6Z/pn8CAgOuAagDoaZ/pj5gIFIgUCBOIEwgSiBIIEbYMx0b9IACA/SAAiQFogO2ecW2eQIggACBAoXwgCm7RlHaiaGoA/DFpAADHFv0gAID9IACA6Y/pn+mf6Z/AgIDrgGoA6Gmf6Y+YCBSIFAgTiBMIEogSCBG2DMdG/SAAgP0gAIkBaIDtnnFtnkCIKAAYYXwgCAVgNDABxsvRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgApuydDtRNDUAfhi0gABji36QAEB+kABAdMf0z/TP9M/gQEB1wDUAdDTP9MfMBApECgQJxAmECUQJBAjbBmOjfpAAQH6QAESAtEB2zzi2zyAiDgAIEFhfCAIBIBUQAgFIExECm7LvO1E0NQB+GLSAAGOLfpAAQH6QAEB0x/TP9M/0z+BAQHXANQB0NM/0x8wECkQKBAnECYQJRAkECNsGY6N+kABAfpAARIC0QHbPOLbPICISAAgQOF8IApux4jtRNDUAfhi0gABji36QAEB+kABAdMf0z/TP9M/gQEB1wDUAdDTP9MfMBApECgQJxAmECUQJBAjbBmOjfpAAQH6QAESAtEB2zzi2zyAiFAAIEEhfCAKburre1E0NQB+GLSAAGOLfpAAQH6QAEB0x/TP9M/0z+BAQHXANQB0NM/0x8wECkQKBAnECYQJRAkECNsGY6N+kABAfpAARIC0QHbPOLbPIIhYACBBoXwgDztAB0NMDAXGwwAGRf5Fw4gH6QCJQVW8E+GHtRNDUAfhi0gABji36QAEB+kABAdMf0z/TP9M/gQEB1wDUAdDTP9MfMBApECgQJxAmECUQJBAjbBmOjfpAAQH6QAESAtEB2zziVRjbPDAiGRgAXMj4QgHMfwHKAFWAUJjPFlAGzxYUyx8Syz/LP8s/gQEBzwACyMs/yx/JAczJ7VQExu2i7ftwIddJwh+VMCDXCx/eApJbf+AhghBELURuuo6VMdMfAYIQRC1Ebrry4IHTHwEx2zx/4CGCEDIA4Ju6jpUx0x8BghAyAOCbuvLggdMfATHbPH/gIYIQlGqYtrrjAgHAACEgHBoBZo6t+QGC8LGjU31oQXSahsjTxk8UYLuc4kA8YlKsjHlZ30OPwmUruo6F2zx/2zHgkTDicBsADDL4IzNyAgFGMdMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8nbPH8dASb4QW8kECNfA39wUAOAQgFtbds8HgH2yHEBygFQBwHKAHABygJQBc8WUAP6AnABymgjbrMlbrOxjkx/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMlzMzAXABygDiIW6zHwAwnH8BygABIG7y0IABzJUxcAHKAOLJAfsAABIzgWl6I8EH8vQAUDWCAJevA8AAE/L0gR7A+CNTYqC78vSCAOFuU0K68vRQU6D4I1BTcQIAGnD4I1RxEYID9ICBAPqNPRew');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -438,7 +438,7 @@ export class JobContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: Fund_Project | Update_Status | 'sellerDelivered' | Deploy) {
         
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Fund_Project') {
@@ -446,6 +446,9 @@ export class JobContract implements Contract {
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Update_Status') {
             body = beginCell().store(storeUpdate_Status(message)).endCell();
+        }
+        if (message === 'sellerDelivered') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Deploy') {
             body = beginCell().store(storeDeploy(message)).endCell();
@@ -487,6 +490,13 @@ export class JobContract implements Contract {
     async getMaxTimeToDeposit(provider: ContractProvider) {
         let builder = new TupleBuilder();
         let source = (await provider.get('MaxTimeToDeposit', builder.build())).stack;
+        let result = source.readBigNumber();
+        return result;
+    }
+    
+    async getDeliveryTime(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('DeliveryTime', builder.build())).stack;
         let result = source.readBigNumber();
         return result;
     }

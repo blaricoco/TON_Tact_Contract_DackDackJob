@@ -16,6 +16,7 @@ contract JobContract with Deployable {
     funds: Int as uint32;
     deployed_time: Int as uint64;
     deposit_time: Int as uint64;
+    delivery_time: Int as uint64;
     contract_status: Int;
     max_time_to_deposit: Int as uint64;
     contract_price: Int as uint32;
@@ -26,9 +27,12 @@ contract JobContract with Deployable {
         self.buyer = buyer;
         self.funds = 0;
         self.deployed_time = now();
+        self.deposit_time = 0;
+        self.delivery_time = 0;
         self.contract_status = 0;
         self.max_time_to_deposit = 259200;
         self.contract_price = 250;
+        
     }
 
     fun fund_Project(v: Int) {
@@ -44,6 +48,12 @@ contract JobContract with Deployable {
         self.funds = (self.funds + v);
         self.deposit_time = now();
         self.contract_status = 1;
+    }
+
+    fun seller_delivered() {
+
+        self.delivery_time = now();
+        self.contract_status = 2;
     }
 
     fun update_Status(v: Int) {
@@ -80,6 +90,10 @@ contract JobContract with Deployable {
         self.update_Status(msg.statusID);
     }
 
+    receive("sellerDelivered"){
+        self.seller_delivered();
+    }
+
     get fun Funds(): Int {
         return self.funds;
     }
@@ -98,5 +112,9 @@ contract JobContract with Deployable {
 
     get fun MaxTimeToDeposit(): Int {
         return self.max_time_to_deposit;
+    }
+
+    get fun DeliveryTime(): Int {
+        return self.delivery_time;
     }
 }
