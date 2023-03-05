@@ -229,6 +229,16 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, int, int, int, i
     return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
 }
 
+((slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_buyer_dispute((slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(38848, ($self'contract_status == 2));
+    throw_unless(52504, __tact_address_eq($self'buyer, $ctx'sender));
+    throw_unless(37959, (now() <= ($self'delivery_time + $self'max_time_to_review)));
+    $self'contract_status = 4;
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
 ((slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_update_Status((slice, slice, int, int, int, int, int, int, int, int, int) $self, int $v) impure inline_ref {
     var (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)) = $self;
     throw_unless(27002, ($v <= 6));
@@ -350,6 +360,12 @@ _ $__gen_get_DeliveryTime() method_id(89020) {
     return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
 }
 
+((slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_receive_comment_21a8cc46f587c521b6433ad5983eab0f02ba1a9c1de28c81fead6c062db93779((slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline {
+    var ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price) = $self;
+    ($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)~$__gen_JobContract_buyer_dispute();
+    return (($self'seller, $self'buyer, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
 ((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
     return (queryId);
 }
@@ -410,6 +426,12 @@ _ $__gen_get_DeliveryTime() method_id(89020) {
             self~$__gen_JobContract_receive_comment_f33be2133cdf414556490ef94d31e3d7716b6596e0be2b9831558a9b37671f9b();
             return (self, true);
         }
+        
+        ;; Receive "buyerDispute" message
+        if (text_op == 0x21a8cc46f587c521b6433ad5983eab0f02ba1a9c1de28c81fead6c062db93779) {
+            self~$__gen_JobContract_receive_comment_21a8cc46f587c521b6433ad5983eab0f02ba1a9c1de28c81fead6c062db93779();
+            return (self, true);
+        }
     }
     
     return (self, false);
@@ -446,7 +468,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://Qmepdw5zmfKSVGZSRYzMUwnBS3Mju7D2xmEuBWu1mUzMXc";
+    return "ipfs://QmXxrmCgD5nv4fBoPzViUMeSE9xPznR1Vx4xVRzCQiRF4Y";
 }
 
 _ lazy_deployment_completed() {

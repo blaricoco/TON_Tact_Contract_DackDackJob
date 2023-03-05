@@ -325,6 +325,9 @@ SETCP0
       s0 s1 XCHG
       0 EQINT
       <{
+        s0 POP
+      }> PUSHCONT
+      <{
         HASHSU
         s0 PUSH
         80347946496716549555802909439765488297494205698806487183815519820490127598891 PUSHINT
@@ -363,9 +366,11 @@ SETCP0
           RETALT
         }> PUSHCONT
         IFJMP
+        s0 PUSH
         110017826495879597658833998324544717061345217546808775994776202580586085687195 PUSHINT
         EQUAL
         <{
+          s0 POP
           <{
             1 GETGLOBVAR
             4 UNTUPLE
@@ -529,11 +534,39 @@ SETCP0
           RETALT
         }> PUSHCONT
         IFJMP
-      }> PUSHCONT
-      <{
-        s0 POP
-      }> PUSHCONT
-      IFELSE
+        15224564179438935375261357669669508752998877399857293307681341352431081568121 PUSHINT
+        EQUAL
+        <{
+          <{
+            1 GETGLOBVAR
+            4 UNTUPLE
+            s2 s3 XCHG
+            3 BLKDROP
+            38848 PUSHINT
+            s0 s6 XCHG
+            2 EQINT
+            s1 s6 XCHG
+            THROWANYIFNOT
+            s9 PUSH
+            52504 PUSHINT
+            s0 s6 XCHG
+            SDEQ
+            s1 s5 XCHG
+            THROWANYIFNOT
+            37959 PUSHINT
+            NOW
+            s6 s2 PUSH2
+            ADD
+            LEQ
+            THROWANYIFNOT
+            4 PUSHINT
+            s0 s4 XCHG
+          }> CALLREF
+          -1 PUSHINT
+          RETALT
+        }> PUSHCONT
+        IFJMP
+      }> IFREFELSE
       0 PUSHINT
     }> CALLREF
     s0 POP

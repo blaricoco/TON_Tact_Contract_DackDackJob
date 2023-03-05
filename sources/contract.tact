@@ -82,6 +82,16 @@ contract JobContract with Deployable {
         self.contract_status = 3;
     }
 
+    fun buyer_dispute() {
+        let ctx: Context = context();
+
+        require(self.contract_status == 2, "Incorrect State, can only be accepted when status delivered");
+        require(self.buyer == ctx.sender, "Only Buyer can dispute");
+        require(now() <= self.delivery_time + self.max_time_to_review, "Max time to dispute exceeded");
+
+        self.contract_status = 4;
+    }
+
     fun update_Status(v: Int) {
         // TODO: Check update status 
         require(v <= 6, "Invalid status");
@@ -122,6 +132,10 @@ contract JobContract with Deployable {
 
     receive("buyerAccept"){
         self.buyer_accept();
+    }
+
+    receive("buyerDispute"){
+        self.buyer_dispute();
     }
 
     get fun Funds(): Int {
