@@ -358,4 +358,120 @@ describe("contract", () => {
     expect(await contract.getMaxTimeToComplete()).toEqual(259200n);
 
   });
+
+  it("15) buyer_accept - Status update - Accepted", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+  
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    await system.run();
+
+    await contract.send(buyer, {value: toNano(1)}, "buyerAccept");
+    await system.run();
+
+    // No funding change with incorrect amount 
+    expect(await contract.getContractStatus()).toEqual(3n);
+
+  });
+
+  it("16) TBD buyer_accept - Send Contract Balance - 250", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+    
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    await system.run();
+
+    await contract.send(buyer, {value: toNano(1)}, "buyerAccept");
+    await system.run();
+
+    //console.log(seller.address);
+    console.log(seller.address);
+    
+    // No funding change with incorrect amount 
+    expect(await contract.getContractStatus()).toEqual(3n);
+
+  });
+
+  it("17) buyer_accept - Should NOT update contract status to 3 - Not delivered", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+    
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    // await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    // await system.run();
+
+    await contract.send(buyer, {value: toNano(1)}, "buyerAccept");
+    await system.run();
+    
+    // No funding change with incorrect amount 
+    expect(await contract.getContractStatus()).toEqual(1n);
+
+  });
+
+  it("18) buyer_accept - Should NOT update contract status to 3 - Sender not Buyer", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+    
+    await contract.send(seller, {value: toNano(1)}, {$$type: "Fund_Project", amount: 250n});
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "sellerDelivered");
+    await system.run();
+
+    await contract.send(seller, {value: toNano(1)}, "buyerAccept");
+    await system.run();
+    
+    // No funding change with incorrect amount 
+    expect(await contract.getContractStatus()).toEqual(2n);
+
+  });
+
+  it("19) buyer_accept - CHECK GETTERS - getMaxTimeToReview", async () => {
+    // Create ContractSystem and deploy contract 
+    let system = await ContractSystem.create(); //dummy blockchain 
+    let seller = system.treasure("seller"); // Creates wallet (seller)
+    let buyer = system.treasure("buyer"); // Creates wallet (seller)
+    let contract = system.open(await JobContract.fromInit(seller.address, buyer.address)); // Open contract - using contract 
+    
+    await contract.send(seller, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n }); // Deploy
+    await system.run(); // Execute
+    
+
+    
+    // No funding change with incorrect amount 
+    expect(await contract.getMaxTimeToReview()).toEqual(259200n);
+
+  });
 });

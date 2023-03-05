@@ -20,6 +20,7 @@ contract JobContract with Deployable {
     contract_status: Int;
     max_time_to_deposit: Int as uint64;
     max_time_to_complete: Int as uint64;
+    max_time_to_review: Int as uint64;
     contract_price: Int as uint32;
 
 
@@ -33,6 +34,7 @@ contract JobContract with Deployable {
         self.contract_status = 0;
         self.max_time_to_deposit = 259200;
         self.max_time_to_complete = 259200;
+        self.max_time_to_review = 259200;
         self.contract_price = 250;
         
     }
@@ -64,7 +66,20 @@ contract JobContract with Deployable {
     }
 
     fun buyer_accept() {
-        
+        let ctx: Context = context();
+
+        require(self.contract_status == 2, "Incorrect State, can only be accepted when status delivered");
+        require(self.buyer == ctx.sender, "Only Buyer can accept");
+        require(now() <= self.delivery_time + self.max_time_to_review, "Max time to accept exceeded");
+
+        send(SendParameters{
+            to: self.seller,
+            value: ton("0.5"), 
+            mode: SendIgnoreErrors, 
+            bounce: true
+        });
+
+        self.contract_status = 3;
     }
 
     fun update_Status(v: Int) {
@@ -105,6 +120,10 @@ contract JobContract with Deployable {
         self.seller_delivered();
     }
 
+    receive("buyerAccept"){
+        self.buyer_accept();
+    }
+
     get fun Funds(): Int {
         return self.funds;
     }
@@ -127,6 +146,10 @@ contract JobContract with Deployable {
 
     get fun MaxTimeToComplete(): Int {
         return self.max_time_to_complete;
+    }
+
+    get fun MaxTimeToReview(): Int {
+        return self.max_time_to_review;
     }
 
     get fun DeliveryTime(): Int {

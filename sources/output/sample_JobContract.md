@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 1400 bytes
+BOC Size: 1625 bytes
 
 # Types
 Total Types: 7
@@ -34,7 +34,7 @@ TLB: `update_status#3200e09b statusID:uint32 = Update_Status`
 Signature: `Update_Status{statusID:uint32}`
 
 # Get Methods
-Total Get Methods: 7
+Total Get Methods: 8
 
 ## Funds
 
@@ -47,6 +47,8 @@ Total Get Methods: 7
 ## MaxTimeToDeposit
 
 ## MaxTimeToComplete
+
+## MaxTimeToReview
 
 ## DeliveryTime
 
@@ -77,8 +79,11 @@ Total Get Methods: 7
 3234: Only Seller can deliver
 4429: Invalid sender
 7872: Max time to deposit exceeded
+22025: Only Buyer can accept
 22641: Max time to deliver exceeded
 27002: Invalid status
 32991: Incorrect State, can only be funded when status unfunded
+38848: Incorrect State, can only be accepted when status delivered
 49940: Incorrect State, can only be delivered when status funded
+57500: Max time to accept exceeded
 57710: Incorrect amount to fund contract
