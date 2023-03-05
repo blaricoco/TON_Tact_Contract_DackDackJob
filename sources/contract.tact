@@ -8,11 +8,16 @@ message Update_Status {
     statusID: Int as uint32;
 } 
 
+message Dispute_Resolve {
+    address: Address;
+} 
+
 
 contract JobContract with Deployable {
 
     seller: Address;
     buyer: Address;
+    dispute_resolver: Address;
     funds: Int as uint32;
     deployed_time: Int as uint64;
     deposit_time: Int as uint64;
@@ -24,9 +29,10 @@ contract JobContract with Deployable {
     contract_price: Int as uint32;
 
 
-    init(seller: Address, buyer: Address) {
+    init(seller: Address, buyer: Address, dispute_resolver: Address) {
         self.seller = seller;
         self.buyer = buyer;
+        self.dispute_resolver = dispute_resolver;
         self.funds = 0;
         self.deployed_time = now();
         self.deposit_time = 0;
@@ -92,6 +98,10 @@ contract JobContract with Deployable {
         self.contract_status = 4;
     }
 
+    fun dispute_resolve(winner: Address) {
+
+    }
+
     fun update_Status(v: Int) {
         // TODO: Check update status 
         require(v <= 6, "Invalid status");
@@ -124,6 +134,11 @@ contract JobContract with Deployable {
     receive(msg: Update_Status) {
 
         self.update_Status(msg.statusID);
+    }
+
+    receive(msg: Dispute_Resolve) {
+
+        self.dispute_resolve(msg.address);
     }
 
     receive("sellerDelivered"){

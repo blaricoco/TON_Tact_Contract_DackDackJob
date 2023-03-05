@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 1721 bytes
+BOC Size: 1823 bytes
 
 # Types
-Total Types: 7
+Total Types: 8
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -32,6 +32,10 @@ Signature: `Fund_Project{amount:uint32}`
 ## Update_Status
 TLB: `update_status#3200e09b statusID:uint32 = Update_Status`
 Signature: `Update_Status{statusID:uint32}`
+
+## Dispute_Resolve
+TLB: `dispute_resolve#7c89c43f address:address = Dispute_Resolve`
+Signature: `Dispute_Resolve{address:address}`
 
 # Get Methods
 Total Get Methods: 8

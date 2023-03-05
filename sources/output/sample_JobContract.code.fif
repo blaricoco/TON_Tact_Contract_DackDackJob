@@ -11,6 +11,7 @@ PROGRAM{
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_Fund_Project
   DECLPROC __gen_read_Update_Status
+  DECLPROC __gen_read_Dispute_Resolve
   DECLPROC __gen_write_JobContract
   DECLPROC __gen_read_JobContract
   DECLPROC __gen_read_$init$JobContract
@@ -25,6 +26,7 @@ PROGRAM{
   DECLPROC __gen_constructor_SendParameters$to_value_mode_bounce
   DECLPROC $__gen_JobContract_buyer_accept
   DECLPROC $__gen_JobContract_buyer_dispute
+  DECLPROC $__gen_JobContract_dispute_resolve
   DECLPROC $__gen_JobContract_update_Status
   DECLPROC $__gen_JobContract_Funds
   76717 DECLMETHOD $__gen_get_Funds
@@ -44,6 +46,7 @@ PROGRAM{
   89020 DECLMETHOD $__gen_get_DeliveryTime
   DECLPROC $__gen_JobContract_receive_Fund_Project
   DECLPROC $__gen_JobContract_receive_Update_Status
+  DECLPROC $__gen_JobContract_receive_Dispute_Resolve
   DECLPROC $__gen_JobContract_receive_comment_b1a3537d6841749a86c8d3c64f1460bb9ce2403c6252ac8c7959df438fc2652b
   DECLPROC $__gen_JobContract_receive_comment_f33be2133cdf414556490ef94d31e3d7716b6596e0be2b9831558a9b37671f9b
   DECLPROC $__gen_JobContract_receive_comment_21a8cc46f587c521b6433ad5983eab0f02ba1a9c1de28c81fead6c062db93779
@@ -124,22 +127,33 @@ PROGRAM{
     32 LDU
     SWAP
   }>
+  __gen_read_Dispute_Resolve PROCINLINE:<{
+    32 LDU
+    SWAP
+    2089403455 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+  }>
   __gen_write_JobContract PROCINLINE:<{
-    s11 s10 XCHG2
+    s12 s11 XCHG2
     __tact_store_address INLINECALLDICT
-    s0 s8 XCHG2
+    s0 s9 XCHG2
     __tact_store_address INLINECALLDICT
-    s1 s6 XCHG
+    s0 s7 XCHG2
+    __tact_store_address INLINECALLDICT
+    s1 s5 XCHG
     32 STU
-    s1 s4 XCHG
-    64 STU
-    s1 s2 XCHG
+    s1 s3 XCHG
     64 STU
     64 STU
-    257 PUSHINT
-    STIX
     SWAP
     NEWC
+    64 STU
+    s1 s2 XCHG
+    257 PUSHINT
+    STIX
+    s1 s2 XCHG
     64 STU
     s1 s2 XCHG
     64 STU
@@ -155,33 +169,36 @@ PROGRAM{
     SWAP
     __tact_load_address INLINECALLDICT
     SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
     32 LDU
     64 LDU
     64 LDU
-    64 LDU
-    257 PUSHINT
-    LDIX
     LDREF
     SWAP
     CTOS
+    64 LDU
+    257 PUSHINT
+    LDIX
     64 LDU
     64 LDU
     64 LDU
     32 LDU
     DROP
-    s4 s11 XCHG
-    s4 s10 XCHG
-    s4 s9 XCHG
-    s4 s8 XCHG
-    s4 s7 XCHG
-    s4 s6 XCHG
-    s4 s5 XCHG
+    s6 s12 XCHG
+    s6 s11 XCHG
+    s6 s10 XCHG
+    s6 s9 XCHG
+    s6 s8 XCHG
+    s6 s7 XCHG
   }>
   __gen_read_$init$JobContract PROCINLINE:<{
     __tact_load_address INLINECALLDICT
     SWAP
     __tact_load_address INLINECALLDICT
-    s1 s2 XCHG
+    SWAP
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
   }>
   $__gen_JobContract_init PROCREF:<{
     0 PUSHINT
@@ -201,12 +218,12 @@ PROGRAM{
     SWAP
     IF:<{
       __gen_read_JobContract INLINECALLDICT
-      1 11 BLKDROP2
+      1 12 BLKDROP2
     }>ELSE<{
       __gen_read_$init$JobContract INLINECALLDICT
-      s0 s2 XCHG
+      s0 s3 XCHG
       ENDS
-      SWAP
+      ROT
       $__gen_JobContract_init INLINECALLDICT
     }>
   }>
@@ -218,7 +235,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    11 -ROLL
+    12 -ROLL
     __gen_write_JobContract INLINECALLDICT
     ENDC
     c4 POP
@@ -372,7 +389,7 @@ PROGRAM{
     1 EQINT
     s1 s5 XCHG
     THROWANYIFNOT
-    s9 PUSH
+    s10 PUSH
     3234 PUSHINT
     s0 s5 XCHG
     __tact_address_eq INLINECALLDICT
@@ -404,7 +421,7 @@ PROGRAM{
     2 EQINT
     s1 s6 XCHG
     THROWANYIFNOT
-    s9 PUSH
+    s10 PUSH
     22025 PUSHINT
     s0 s6 XCHG
     __tact_address_eq INLINECALLDICT
@@ -416,7 +433,7 @@ PROGRAM{
     ADD
     LEQ
     THROWANYIFNOT
-    s9 PUSH
+    s10 PUSH
     500000000 PUSHINT
     2 PUSHINT
     TRUE
@@ -434,7 +451,7 @@ PROGRAM{
     2 EQINT
     s1 s6 XCHG
     THROWANYIFNOT
-    s9 PUSH
+    s10 PUSH
     52504 PUSHINT
     s0 s6 XCHG
     __tact_address_eq INLINECALLDICT
@@ -449,6 +466,9 @@ PROGRAM{
     4 PUSHINT
     s0 s4 XCHG
   }>
+  $__gen_JobContract_dispute_resolve PROCREF:<{
+    DROP
+  }>
   $__gen_JobContract_update_Status PROCREF:<{
     s5 POP
     27002 PUSHINT
@@ -457,64 +477,64 @@ PROGRAM{
     THROWANYIFNOT
   }>
   $__gen_JobContract_Funds PROCREF:<{
-    s8 s10 XCHG
-    10 BLKDROP
+    s8 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_Funds PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_Funds INLINECALLDICT
   }>
   $__gen_JobContract_DeployedTime PROCREF:<{
-    s7 s10 XCHG
-    10 BLKDROP
+    s7 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_DeployedTime PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_DeployedTime INLINECALLDICT
   }>
   $__gen_JobContract_DepositTime PROCREF:<{
-    s6 s10 XCHG
-    10 BLKDROP
+    s6 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_DepositTime PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_DepositTime INLINECALLDICT
   }>
   $__gen_JobContract_ContractStatus PROCREF:<{
-    s4 s10 XCHG
-    10 BLKDROP
+    s4 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_ContractStatus PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_ContractStatus INLINECALLDICT
   }>
   $__gen_JobContract_MaxTimeToDeposit PROCREF:<{
-    s3 s10 XCHG
-    10 BLKDROP
+    s3 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_MaxTimeToDeposit PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_MaxTimeToDeposit INLINECALLDICT
   }>
   $__gen_JobContract_MaxTimeToComplete PROCREF:<{
-    s2 s10 XCHG
-    10 BLKDROP
+    s2 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_MaxTimeToComplete PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_MaxTimeToComplete INLINECALLDICT
   }>
   $__gen_JobContract_MaxTimeToReview PROCREF:<{
-    s1 s10 XCHG
-    10 BLKDROP
+    s1 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_MaxTimeToReview PROC:<{
     __gen_load_JobContract INLINECALLDICT
     $__gen_JobContract_MaxTimeToReview INLINECALLDICT
   }>
   $__gen_JobContract_DeliveryTime PROCREF:<{
-    s5 s10 XCHG
-    10 BLKDROP
+    s5 s11 XCHG
+    11 BLKDROP
   }>
   $__gen_get_DeliveryTime PROC:<{
     __gen_load_JobContract INLINECALLDICT
@@ -525,6 +545,9 @@ PROGRAM{
   }>
   $__gen_JobContract_receive_Update_Status PROCINLINE:<{
     $__gen_JobContract_update_Status INLINECALLDICT
+  }>
+  $__gen_JobContract_receive_Dispute_Resolve PROCINLINE:<{
+    $__gen_JobContract_dispute_resolve INLINECALLDICT
   }>
   $__gen_JobContract_receive_comment_b1a3537d6841749a86c8d3c64f1460bb9ce2403c6252ac8c7959df438fc2652b PROCINLINE:<{
     $__gen_JobContract_seller_delivered INLINECALLDICT
@@ -577,6 +600,16 @@ PROGRAM{
       __gen_read_Update_Status INLINECALLDICT
       NIP
       $__gen_JobContract_receive_Update_Status INLINECALLDICT
+      TRUE
+    }>
+    OVER
+    2089403455 PUSHINT
+    EQUAL
+    IFJMP:<{
+      NIP
+      __gen_read_Dispute_Resolve INLINECALLDICT
+      NIP
+      $__gen_JobContract_receive_Dispute_Resolve INLINECALLDICT
       TRUE
     }>
     OVER
@@ -643,7 +676,7 @@ PROGRAM{
     4 TUPLE
     __tact_context SETGLOB
     __gen_load_JobContract INLINECALLDICT
-    2 11 BLKSWAP
+    2 12 BLKSWAP
     __gen_router_JobContract INLINECALLDICT
     DROP
     __gen_store_JobContract INLINECALLDICT
@@ -654,7 +687,7 @@ PROGRAM{
     42980537499636128163026532310500881091 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5878726d436744356e763466426f507a5669554d6553453978507a6e52315678347856527a43516952463459} PUSHSLICE
+    x{697066733a2f2f516d59667a6879716f4265683859635573527863314a4c505051594c56764754426439366341566d4a6541325a41} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
