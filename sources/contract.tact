@@ -71,6 +71,7 @@ contract JobContract with Deployable {
         self.contract_status = 2;
     }
 
+    // TODO: SEND VALUE ARRIVED IN WALLET
     fun buyer_accept() {
         let ctx: Context = context();
 
@@ -98,12 +99,80 @@ contract JobContract with Deployable {
         self.contract_status = 4;
     }
 
+    // TODO: SEND VALUE ARRIVED IN WALLET
     fun dispute_resolve(winner: Address) {
+        let ctx: Context = context();
 
+        require(self.contract_status == 4, "Incorrect State, can only be accepted when status dispute");
+        require(self.dispute_resolver == ctx.sender, "Only dispute resolver can resolve dispute");
+
+        // Case when seller wins
+        if (winner == self.seller) {
+           
+            send(SendParameters{
+            to: self.seller,
+            value: ton("0.5"), 
+            mode: SendIgnoreErrors, 
+            bounce: true
+            });
+
+            self.contract_status = 6;
+
+        } 
+        
+        // Case when buyer wins
+        else if (winner == self.buyer) {
+            
+            send(SendParameters{
+            to: self.buyer,
+            value: ton("0.5"), 
+            mode: SendIgnoreErrors, 
+            bounce: true
+            });
+
+            self.contract_status = 6;
+        } 
+
+        else {}
+        
+    }
+
+    fun seller_not_delivered() {
+        let ctx: Context = context();
+
+        require(self.contract_status == 1, "Incorrect State, can only be Not delivered when status funded");
+        require(self.buyer == ctx.sender, "Only Buyer can call - seller not delivered ");
+        require(now() >= self.deposit_time + self.max_time_to_complete, "Max time to complete not exceeded");
+
+        send(SendParameters{
+            to: self.buyer,
+            value: ton("0.5"), 
+            mode: SendIgnoreErrors, 
+            bounce: true
+            });
+
+        self.contract_status = 5;
+    }
+
+    fun buyer_not_reviewed() {
+        let ctx: Context = context();
+
+        require(self.contract_status == 2, "Incorrect State, needs to be status delivered");
+        require(self.seller == ctx.sender, "Only Seller can call - buyer not reviewed ");
+        require(now() >= self.delivery_time + self.max_time_to_review, "Max time to review not exceeded");
+
+        send(SendParameters{
+            to: self.seller,
+            value: ton("0.5"), 
+            mode: SendIgnoreErrors, 
+            bounce: true
+            });
+
+        self.contract_status = 5;
     }
 
     fun update_Status(v: Int) {
-        // TODO: Check update status 
+    
         require(v <= 6, "Invalid status");
 
         self.contract_status = v;
@@ -151,6 +220,14 @@ contract JobContract with Deployable {
 
     receive("buyerDispute"){
         self.buyer_dispute();
+    }
+
+    receive("sellerNotDelivered"){
+        self.seller_not_delivered();
+    }
+
+    receive("buyerNotReviewed"){
+        self.buyer_not_reviewed();
     }
 
     get fun Funds(): Int {

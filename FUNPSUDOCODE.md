@@ -23,8 +23,8 @@ Contract Status
 1) Funded
 2) Delivered
 3) Accepted
-4) Cancelled
-5) Dispute
+4) Dispute
+5) Cancelled
 6) Resolved
 
 CONSTRUCTOR (Creating)

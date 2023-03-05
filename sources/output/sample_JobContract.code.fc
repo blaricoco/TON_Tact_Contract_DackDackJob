@@ -251,6 +251,38 @@ builder __gen_write_JobContract(builder build_0, (slice, slice, slice, int, int,
 
 ((slice, slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_dispute_resolve((slice, slice, slice, int, int, int, int, int, int, int, int, int) $self, slice $winner) impure inline_ref {
     var (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(3956, ($self'contract_status == 4));
+    throw_unless(39030, __tact_address_eq($self'dispute_resolver, $ctx'sender));
+    if (__tact_address_eq($winner, $self'seller)) {
+        $send(__gen_constructor_SendParameters$to_value_mode_bounce($self'seller, 500000000, 2, true));
+        $self'contract_status = 6;
+    } elseif (__tact_address_eq($winner, $self'buyer)) {
+        $send(__gen_constructor_SendParameters$to_value_mode_bounce($self'buyer, 500000000, 2, true));
+        $self'contract_status = 6;
+    }
+    return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
+((slice, slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_seller_not_delivered((slice, slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(18044, ($self'contract_status == 1));
+    throw_unless(49548, __tact_address_eq($self'buyer, $ctx'sender));
+    throw_unless(3028, (now() >= ($self'deposit_time + $self'max_time_to_complete)));
+    $send(__gen_constructor_SendParameters$to_value_mode_bounce($self'buyer, 500000000, 2, true));
+    $self'contract_status = 5;
+    return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
+((slice, slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_buyer_not_reviewed((slice, slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)) = $self;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(27088, ($self'contract_status == 2));
+    throw_unless(3546, __tact_address_eq($self'seller, $ctx'sender));
+    throw_unless(18675, (now() >= ($self'delivery_time + $self'max_time_to_review)));
+    $send(__gen_constructor_SendParameters$to_value_mode_bounce($self'seller, 500000000, 2, true));
+    $self'contract_status = 5;
     return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
 }
 
@@ -388,6 +420,18 @@ _ $__gen_get_DeliveryTime() method_id(89020) {
     return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
 }
 
+((slice, slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_receive_comment_fa588efd33bf957f0cacc9aa6937e213b8b9ab11cf8de3e6a06589b21c912d2a((slice, slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline {
+    var ($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price) = $self;
+    ($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)~$__gen_JobContract_seller_not_delivered();
+    return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
+((slice, slice, slice, int, int, int, int, int, int, int, int, int), ()) $__gen_JobContract_receive_comment_9ca66ec43b3f48d2995246fbd1d758b12183efaf78b2ff9b9b6e31b249200c0a((slice, slice, slice, int, int, int, int, int, int, int, int, int) $self) impure inline {
+    var ($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price) = $self;
+    ($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price)~$__gen_JobContract_buyer_not_reviewed();
+    return (($self'seller, $self'buyer, $self'dispute_resolver, $self'funds, $self'deployed_time, $self'deposit_time, $self'delivery_time, $self'contract_status, $self'max_time_to_deposit, $self'max_time_to_complete, $self'max_time_to_review, $self'contract_price), ());
+}
+
 ((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
     return (queryId);
 }
@@ -461,6 +505,18 @@ _ $__gen_get_DeliveryTime() method_id(89020) {
             self~$__gen_JobContract_receive_comment_21a8cc46f587c521b6433ad5983eab0f02ba1a9c1de28c81fead6c062db93779();
             return (self, true);
         }
+        
+        ;; Receive "sellerNotDelivered" message
+        if (text_op == 0xfa588efd33bf957f0cacc9aa6937e213b8b9ab11cf8de3e6a06589b21c912d2a) {
+            self~$__gen_JobContract_receive_comment_fa588efd33bf957f0cacc9aa6937e213b8b9ab11cf8de3e6a06589b21c912d2a();
+            return (self, true);
+        }
+        
+        ;; Receive "buyerNotReviewed" message
+        if (text_op == 0x9ca66ec43b3f48d2995246fbd1d758b12183efaf78b2ff9b9b6e31b249200c0a) {
+            self~$__gen_JobContract_receive_comment_9ca66ec43b3f48d2995246fbd1d758b12183efaf78b2ff9b9b6e31b249200c0a();
+            return (self, true);
+        }
     }
     
     return (self, false);
@@ -497,7 +553,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmYfzhyqoBeh8YcUsRxc1JLPPQYLVvGTBd96cAVmJeA2ZA";
+    return "ipfs://QmPLi6Tc4yRb79ozt1xPTz37sRQCV28dYDQVX7XyhttUVf";
 }
 
 _ lazy_deployment_completed() {

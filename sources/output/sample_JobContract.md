@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: JobContract
-BOC Size: 1823 bytes
+BOC Size: 2116 bytes
 
 # Types
 Total Types: 8
@@ -80,15 +80,23 @@ Total Get Methods: 8
 134: Invalid argument
 135: Code of a contract was not found
 136: Invalid address
+3028: Max time to complete not exceeded
 3234: Only Seller can deliver
+3546: Only Seller can call - buyer not reviewed
+3956: Incorrect State, can only be accepted when status dispute
 4429: Invalid sender
 7872: Max time to deposit exceeded
+18044: Incorrect State, can only be Not delivered when status funded
+18675: Max time to review not exceeded
 22025: Only Buyer can accept
 22641: Max time to deliver exceeded
 27002: Invalid status
+27088: Incorrect State, needs to be status delivered
 32991: Incorrect State, can only be funded when status unfunded
 37959: Max time to dispute exceeded
 38848: Incorrect State, can only be accepted when status delivered
+39030: Only dispute resolver can resolve dispute
+49548: Only Buyer can call - seller not delivered
 49940: Incorrect State, can only be delivered when status funded
 52504: Only Buyer can dispute
 57500: Max time to accept exceeded
